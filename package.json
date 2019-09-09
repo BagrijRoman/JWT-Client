@@ -1,0 +1,19 @@
+{
+  "name": "jwt-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BagrijRoman/JWT-Client.git"
+  },
+  "author": "BagrijRoman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BagrijRoman/JWT-Client/issues"
+  },
+  "homepage": "https://github.com/BagrijRoman/JWT-Client#readme"
+}
