@@ -1,16 +1,17 @@
 require('dotenv').config({ path: `./.env.${process.env.ENV_TYPE}` });
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const devServerPort = process.env.DEV_SERVER_PORT || 3000;
 const mode = process.env.ENV;
 
 module.exports = {
   mode,
-  entry: './index.js',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: './public',
+    path: path.resolve(__dirname, 'public'),
     publicPath: `http://0.0.0.0:${devServerPort}`,
   },
   module: {
@@ -18,12 +19,26 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: "babel-loader"
+        }
       },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader"
+          }
+        ]
+      }
     ],
   },
   plugins: [
     new webpack.EnvironmentPlugin(['ENV']),
+    new HtmlWebPackPlugin({
+      template: "./src/index.html",
+      filename: "./index.html"
+    })
   ],
   devServer: {
     stats: 'errors-only',

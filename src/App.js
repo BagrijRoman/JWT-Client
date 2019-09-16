@@ -7,17 +7,13 @@ import { ProtectedRoute } from './components';
 import { AppLayout } from './layouts';
 // import { routes } from './const';
 
-const routes = { HOME: '/home' };
-
+const routes = { HOME: '/' };
 
 export default () => (
   <Provider store={store}>
     <Router>
       <Switch>
-        <AppLayout>
-          <Route exact path={routes.HOME} component={<h3>Home page will be here</h3>} />
-        </AppLayout>
-
+        <Route exact path={routes.HOME} component={() => <h3>Home page will be here</h3>} />
       </Switch>
     </Router>
   </Provider>
