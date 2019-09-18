@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './store';
-import { AppLayout, AuthLayout } from './components/layouts';
+import { AppLayout, AuthLayout } from './components/layout';
 import { CustomRoute } from './components/routes';
 import { routes } from './const';
 import {
