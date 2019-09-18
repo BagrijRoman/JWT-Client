@@ -1,7 +1,7 @@
 require('dotenv').config({ path: `./.env.${process.env.ENV_TYPE}` });
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const devServerPort = process.env.DEV_SERVER_PORT || 3000;
 const mode = process.env.ENV;
@@ -20,14 +20,14 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader',
         }
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader"
+            loader: 'html-loader',
           }
         ]
       }
@@ -36,8 +36,8 @@ module.exports = {
   plugins: [
     new webpack.EnvironmentPlugin(['ENV']),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
-      filename: "./index.html",
+      template: './src/index.html',
+      filename: './index.html',
     })
   ],
   devServer: {
@@ -47,7 +47,7 @@ module.exports = {
     hot: true,
     historyApiFallback: true,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      'Access-Control-Allow-Origin': '*',
     },
   },
 };
