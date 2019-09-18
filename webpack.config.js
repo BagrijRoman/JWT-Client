@@ -12,7 +12,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
-    publicPath: `http://0.0.0.0:${devServerPort}/`,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -45,6 +45,7 @@ module.exports = {
     port: devServerPort,
     open: true,
     hot: true,
+    historyApiFallback: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
