@@ -12,7 +12,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
-    publicPath: `http://0.0.0.0:${devServerPort}`,
+    publicPath: `http://0.0.0.0:${devServerPort}/`,
   },
   module: {
     rules: [
@@ -37,11 +37,16 @@ module.exports = {
     new webpack.EnvironmentPlugin(['ENV']),
     new HtmlWebPackPlugin({
       template: "./src/index.html",
-      filename: "./index.html"
+      filename: "./index.html",
     })
   ],
   devServer: {
-    stats: 'errors-only',
+    contentBase: '/',
     port: devServerPort,
+    open: true,
+    hot: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   },
 };
