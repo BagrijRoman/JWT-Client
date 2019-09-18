@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import T from 'prop-types';
 
 const AuthLayout = ({ children }) => (
@@ -9,7 +9,7 @@ const AuthLayout = ({ children }) => (
 );
 
 AuthLayout.propTypes = {
-  children: T.oneOfType([T.element, T.arrayOf(T.element)]).isRequired,
+  children: T.oneOfType([T.element, T.array, T.func]).isRequired,
 };
 
 export default AuthLayout;

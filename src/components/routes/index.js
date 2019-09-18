@@ -1,7 +1,5 @@
-import ProtectedRoute from './ProtectedRoute';
-import NonAuthorizedOnlyRoute from './NonAuthorizedOnlyRoute';
+import CustomRoute from './CustomRoute';
 
 export {
-  ProtectedRoute,
-  NonAuthorizedOnlyRoute,
+  CustomRoute,
 };

@@ -1,6 +1,9 @@
 import { TEST_ACTION } from '../actions/accounts';
 
-const initialState = {};
+const initialState = {
+  isAuthenticated: false,
+  user: {},
+};
 
 export default (state = initialState, action) => {
   const { type, payload } = action;

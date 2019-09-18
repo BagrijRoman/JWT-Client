@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './store';
-import { AppLayout } from './components/layouts';
+import { AppLayout, AuthLayout } from './components/layouts';
+import { CustomRoute } from './components/routes';
 import { routes } from './const';
 import {
   HomePage,
@@ -16,13 +17,11 @@ import {
 export default () => (
   <Provider store={store}>
     <Router>
-      <Switch>
-        <Route exact path={routes.HOME} component={HomePage} />
-        <Route exact path={routes.SIGN_UP} component={SignUp} />
-        <Route exact path={routes.SIGN_IN} component={SignIn} />
-        <Route exact path={routes.RESET_PASSWORD} component={ResetPassword} />
-        <Route exact path={routes.FORGOT_PASSWORD} component={ForgotPassword} />
-      </Switch>
+      <CustomRoute {...{ exact: true, path: routes.HOME, component: HomePage, layout: AppLayout, redirectTo: routes.SIGN_IN, authStatus: true }} />
+      <CustomRoute {...{ exact: true, path: routes.SIGN_IN, component: SignIn, layout: AuthLayout, redirectTo: routes.HOME, authStatus: false }} />
+      <CustomRoute {...{ exact: true, path: routes.SIGN_UP, component: SignUp, layout: AuthLayout, redirectTo: routes.HOME, authStatus: false }} />
+      <CustomRoute {...{ exact: true, path: routes.RESET_PASSWORD, component: ResetPassword, layout: AuthLayout, redirectTo: routes.HOME, authStatus: false }} />
+      <CustomRoute {...{ exact: true, path: routes.FORGOT_PASSWORD, component: ForgotPassword, layout: AuthLayout, redirectTo: routes.HOME, authStatus: false }} />
     </Router>
   </Provider>
 );

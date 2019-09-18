@@ -9,7 +9,7 @@ const AppLayout = ({ children }) => (
 );
 
 AppLayout.propTypes = {
-  children: T.oneOfType([T.element, T.arrayOf(T.element)]).isRequired,
+  children: T.oneOfType([T.element, T.array, T.func]).isRequired,
 };
 
 export default AppLayout;
