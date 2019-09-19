@@ -11,7 +11,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'build'),
     publicPath: '/',
   },
   module: {
@@ -19,18 +19,16 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        }
+        use: [ 'babel-loader' ],
       },
       {
         test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-          }
-        ]
-      }
+        use: [ 'html-loader' ],
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [ 'style-loader', 'css-loader', 'sass-loader' ],
+      },
     ],
   },
   plugins: [
