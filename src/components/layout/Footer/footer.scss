@@ -1,8 +1,9 @@
-@import "../../../styles/colors";
-@import "../../../styles/var";
+@import '../../../styles/colors';
+@import '../../../styles/var';
 
 .app-footer {
-  border-top: 2px solid $primary-1;
+  border-top: 2px solid $primary-dark;
+  background-color: $primary-1;
   color: $text-primary-color;
 
   .footer-content {

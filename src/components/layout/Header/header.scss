@@ -1,0 +1,17 @@
+@import '../../../styles/colors';
+@import '../../../styles/var';
+
+.app-header {
+  border-bottom: 2px solid $primary-dark;
+  background-color: $primary-1;
+  color: $text-primary-color;
+
+  .header-content {
+    margin: auto;
+    max-width: $responsive-width-large;
+  }
+
+
+
+
+}
