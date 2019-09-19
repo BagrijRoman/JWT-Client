@@ -1,11 +1,47 @@
 @import "../../../styles/colors";
+@import "../../../styles/var";
 
 .app-footer {
   border-top: 2px solid $primary-1;
+  color: $text-primary-color;
 
   .footer-content {
     margin: auto;
-    max-width: 1040px;
+    max-width: $responsive-width-large;
+
+    .footer-navigation {
+      padding: 20px 0;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .nav-section {
+      min-width: 200px;
+      margin-right: 20px;
+    }
+
+    .nav-section-header {
+      font-size: 130%;
+    }
+
+    .nav-section-list {
+      padding-left: 16px;
+
+      .nav-item {
+        display: list-item;
+        list-style: none;
+        text-decoration: none;
+        font-size: 110%;
+        line-height: 22px;
+        color: $text-primary-color;
+
+        &:hover {
+          color: $text-hover-color;
+        }
+      }
+    }
+
+
   }
 
   .bottom-line {
@@ -39,7 +75,7 @@
       }
 
       .linkedin:hover {
-        color: $linkedin-hower-color;
+        color: $linkedin-hover-color;
       }
 
       .instagram:hover {
