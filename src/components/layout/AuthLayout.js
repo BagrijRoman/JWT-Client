@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
 
+import Footer from './Footer';
+
 const AuthLayout = ({ children }) => (
-  <div>
-    <h3>Auth layout</h3>
-    {children}
+  <div className="auth-layout">
+    <div className="layout-content">
+      <h3>Auth layout</h3>
+      {children}
+    </div>
+    <Footer/>
   </div>
 );
 

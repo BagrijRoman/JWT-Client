@@ -1,0 +1,16 @@
+@import "../../../styles/colors";
+
+.app-footer {
+  border-top: 2px solid $primary-1;
+
+
+  .footer-content {
+    margin: auto;
+    max-width: 1040px;
+  }
+
+  .bottom-line {
+    padding: 20px 10px;
+    border-top: 2px solid $primary-dark;
+  }
+}
