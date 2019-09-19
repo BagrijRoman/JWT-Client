@@ -5,13 +5,21 @@
   border-bottom: 2px solid $primary-dark;
   background-color: $primary-1;
   color: $text-primary-color;
+  position: fixed;
+  top: 0;
+  width: 100%;
 
   .header-content {
     margin: auto;
     max-width: $responsive-width-large;
+
+    .header-right-panel {
+      display: inline-block;
+      float: right;
+    }
+
+    .header-left-panel {
+      display: inline-block;
+    }
   }
-
-
-
-
 }

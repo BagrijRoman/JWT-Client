@@ -15,9 +15,13 @@ class Header extends Component {
     return (
       <header className="app-header">
         <div className="header-content">
-          <h3>Application Name</h3>
+          <div className="header-left-panel">
+            <h3>Application Name</h3>
+          </div>
 
-          // todo  create panel for non authorized user nad for authorized
+          <div className="header-right-panel">
+            <h3>Header right panel</h3>
+          </div>
         </div>
       </header>
     );
