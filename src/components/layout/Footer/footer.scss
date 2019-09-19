@@ -3,14 +3,53 @@
 .app-footer {
   border-top: 2px solid $primary-1;
 
-
   .footer-content {
     margin: auto;
     max-width: 1040px;
   }
 
   .bottom-line {
-    padding: 20px 10px;
+    padding: 10px 0;
     border-top: 2px solid $primary-dark;
+
+    .copyright {
+      display: inline-block;
+      padding: 20px 20px 20px 0;
+      font-size: 120%;
+      margin-top: 5px;
+    }
+
+    .socials {
+      display: inline-block;
+      padding: 20px 0;
+      float: right;
+
+      .social-link {
+        color: black;
+        font-size: 24px;
+        padding: 10px;
+      }
+
+      .facebook:hover {
+        color: $facebook-hover-color;
+      }
+
+      .twitter:hover {
+        color: $twitter-hover-color;
+      }
+
+      .linkedin:hover {
+        color: $linkedin-hower-color;
+      }
+
+      .instagram:hover {
+        color: $instagram-hover-color;
+      }
+
+      .youtube:hover {
+        color: $youtube-hover-color;
+      }
+
+    }
   }
 }
