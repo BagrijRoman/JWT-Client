@@ -2,9 +2,11 @@ import React from 'react';
 import T from 'prop-types';
 
 const AppLayout = ({ children }) => (
-  <div>
-    <h3>App layout</h3>
-    {children}
+  <div className="app-layout">
+    <div className="layout-content">
+      <h3>App layout</h3>
+      {children}
+    </div>
   </div>
 );
 

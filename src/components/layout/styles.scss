@@ -1,0 +1,9 @@
+@import "../../styles/var";
+
+.app-layout, .auth-layout {
+  .layout-content {
+    min-height: 600px;
+    max-width: $responsive-width-large;
+    margin: auto;
+  }
+}
