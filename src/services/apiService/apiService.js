@@ -8,12 +8,17 @@ class apiService {
   }
 
   handleResponse = (response) => {
+    const { data, status } = response;
+    const { handleError } = this;
 
-    console.log('response ', response);
-
-    debugger
-
-
+    if (status >= 200 && status < 300) {
+      return {
+        data,
+        error: false,
+      };
+    } else {
+      return handleError(response);
+    }
   };
 
   handleError = () => {
@@ -21,15 +26,9 @@ class apiService {
   };
 
   post = async (url, config) => {
-    const { handleResponse, handleError } = this;
+    const { handleResponse } = this;
     const response = await this.api.post(url, config);
-    const { status } = response;
-
-    if (status >= 200 && status < 300) {
-      return handleResponse(response);
-    } else {
-      return handleError(response);
-    }
+    return handleResponse(response);
   };
 
   signIn = async ({ email, password }) => this.post('/auth/sign-in', { email, password });

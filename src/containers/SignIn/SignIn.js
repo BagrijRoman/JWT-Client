@@ -6,13 +6,13 @@ import { withRouter } from 'react-router-dom';
 
 import { routes } from '../../const';
 import { authService } from '../../services';
-
+import { signIn } from '../../actions/accounts';
 
 class SignIn extends Component {
   static propTypes = {
     accounts: T.object.isRequired,
     history: T.object.isRequired,
-    dispatch: T.func.isRequired,
+    signInAction: T.func.isRequired,
   };
 
   constructor(props) {
@@ -43,13 +43,25 @@ class SignIn extends Component {
 
   onSignInClick = async () => {
     const {
-      email,
-      password,
-    } = this.state;
+      props: {
+        signInAction,
+      },
+      state: {
+        email,
+        password,
+      },
+    } = this;
 
     this.setState({ loading: true });
 
     const authResult = await authService.signIn({ email, password });
+
+    if (!authResult.error) {
+      signInAction(authResult);
+    }
+
+
+
 
   };
 
@@ -63,6 +75,9 @@ class SignIn extends Component {
         loading,
       }
     } = this;
+
+    console.log(this.props.accounts);
+
 
     return (
       <div className="sign-in-page">
@@ -107,4 +122,8 @@ class SignIn extends Component {
 
 const mapStateToProps = ({ accounts }) => ({ accounts });
 
-export default withRouter(connect(mapStateToProps, null)(SignIn));
+const mapDispatchToProps = (dispatch) => ({
+  signInAction: (user) => dispatch(signIn(user))
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignIn));

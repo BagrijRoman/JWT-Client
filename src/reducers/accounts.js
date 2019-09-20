@@ -1,4 +1,4 @@
-import { TEST_ACTION } from '../actions/accounts';
+import { TEST_ACTION, SIGN_IN } from '../actions/accounts';
 
 const initialState = {
   isAuthenticated: false,
@@ -14,6 +14,15 @@ export default (state = initialState, action) => {
         ...state,
         testActionExequted: true,
       };
+
+    case SIGN_IN:
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: payload,
+      };
+
+    // todo add sign out action handler here
 
     default:
       return { ...state };

@@ -3,5 +3,5 @@ import authService from './authService';
 
 export {
   apiService,
-  authService
+  authService,
 }
