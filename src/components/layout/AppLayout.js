@@ -1,12 +1,16 @@
 import React from 'react';
 import T from 'prop-types';
 
+import Header from './Header';
+import Footer from './Footer';
+
 const AppLayout = ({ children }) => (
   <div className="app-layout">
+    <Header/>
     <div className="layout-content">
-      <h3>App layout</h3>
       {children}
     </div>
+    <Footer/>
   </div>
 );
 

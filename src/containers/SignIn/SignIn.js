@@ -58,11 +58,9 @@ class SignIn extends Component {
 
     if (!authResult.error) {
       signInAction(authResult);
+    } else {
+      // todo handle error here
     }
-
-
-
-
   };
 
   render () {
@@ -75,9 +73,6 @@ class SignIn extends Component {
         loading,
       }
     } = this;
-
-    console.log(this.props.accounts);
-
 
     return (
       <div className="sign-in-page">
