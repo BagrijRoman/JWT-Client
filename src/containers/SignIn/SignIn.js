@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import T from 'prop-types';
+import { Button, Form } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import { routes } from '../../const';
 
 
 class SignIn extends Component {
+  static propTypes = {
+    accounts: T.object.isRequired,
+    history: T.object.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -12,11 +22,19 @@ class SignIn extends Component {
       loading: false,
     };
 
-    // here add check if user is logged in - redirection
+    const { accounts, history } = props;
+
+    if (accounts.isAuthenticated) {
+      history.replace(routes.HOME);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    // here add check if user is logged in - redirection
+    const { accounts, history } = nextProps;
+
+    if (accounts.isAuthenticated) {
+      history.replace(routes.HOME);
+    }
   };
 
   onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
@@ -85,4 +103,6 @@ class SignIn extends Component {
   };
 }
 
-export default SignIn;  // connect auth section of store to a component
+const mapStateToProps = ({ accounts }) => ({ accounts });
+
+export default withRouter(connect(mapStateToProps, null)(SignIn));
