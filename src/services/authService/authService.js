@@ -42,7 +42,7 @@ class authService {
 
   };
 
-  signOut = () => {};
+  signOut = () => this.removeTokens();
 }
 
 export default new authService();
