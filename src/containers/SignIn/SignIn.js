@@ -7,11 +7,10 @@ class SignIn extends Component {
     super(props);
 
     this.state = {
-      email: '123',
-      password: '123',
+      email: '',
+      password: '',
       loading: false,
     };
-
 
     // here add check if user is logged in - redirection
   }
@@ -27,6 +26,10 @@ class SignIn extends Component {
       email,
       password,
     } = this.state;
+
+    this.setState({ loading: true });
+
+
   };
 
   render () {
@@ -36,6 +39,7 @@ class SignIn extends Component {
       state: {
         email,
         password,
+        loading,
       }
     } = this;
 
@@ -52,6 +56,7 @@ class SignIn extends Component {
                 placeholder: 'Type email here...',
                 value: email,
                 onChange: onInputChange('email'),
+                disabled: loading,
               }}
             />
             <Form.Input
@@ -61,6 +66,7 @@ class SignIn extends Component {
                 placeholder: 'Enter password here...',
                 value: password,
                 onChange: onInputChange('password'),
+                disabled: loading,
               }}
             />
           </Form>
@@ -68,7 +74,9 @@ class SignIn extends Component {
             {...{
               primary: true,
               content: 'Sign in',
-              className: 'sign-in-btn'
+              className: 'sign-in-btn',
+              loading,
+              onClick: onSignInClick,
             }}
           />
         </div>
