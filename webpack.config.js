@@ -8,7 +8,7 @@ const mode = process.env.ENV;
 
 module.exports = {
   mode,
-  entry: './src/index.js',
+  entry: ['@babel/polyfill', './src/index.js'],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
@@ -40,11 +40,15 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [ 'file-loader' ],
       }
     ],
   },
   plugins: [
-    new webpack.EnvironmentPlugin(['ENV']),
+    new webpack.EnvironmentPlugin(['ENV', 'API_BASE']),
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html',

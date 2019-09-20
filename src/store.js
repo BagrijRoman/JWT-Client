@@ -25,4 +25,10 @@ const store = createStore(
   compose(...middleWare),
 );
 
+const { dispatch } = store;
+
 export default store;
+
+export {
+  dispatch,
+};
