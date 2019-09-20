@@ -1,7 +1,7 @@
-import userService from './userService';
-import requestService from './requestService';
+import apiService from './apiService';
+import authService from './authService';
 
 export {
-  userService,
-  requestService,
+  apiService,
+  authService
 }

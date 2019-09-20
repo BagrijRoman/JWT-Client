@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/BagrijRoman/JWT-Client#readme",
   "dependencies": {
+    "@babel/polyfill": "^7.6.0",
+    "axios": "^0.19.0",
     "dotenv": "^8.1.0",
     "font-awesome": "^4.7.0",
     "prop-types": "^15.7.2",

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { routes } from '../../const';
+import { authService } from '../../services';
 
 
 class SignIn extends Component {
@@ -40,7 +41,7 @@ class SignIn extends Component {
 
   onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
 
-  onSignInClick = () => {
+  onSignInClick = async () => {
     const {
       email,
       password,
@@ -48,7 +49,7 @@ class SignIn extends Component {
 
     this.setState({ loading: true });
 
-
+    const authResult = await authService.signIn({ email, password });
 
   };
 
