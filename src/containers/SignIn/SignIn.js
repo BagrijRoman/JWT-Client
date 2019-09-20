@@ -61,6 +61,8 @@ class SignIn extends Component {
     } else {
       // todo handle error here
     }
+
+    this.setState({ loading: false });
   };
 
   render () {
@@ -106,6 +108,7 @@ class SignIn extends Component {
               content: 'Sign in',
               className: 'sign-in-btn',
               loading,
+              disabled: loading,
               onClick: onSignInClick,
             }}
           />
