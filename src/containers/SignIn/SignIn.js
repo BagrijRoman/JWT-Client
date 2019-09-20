@@ -11,6 +11,7 @@ class SignIn extends Component {
   static propTypes = {
     accounts: T.object.isRequired,
     history: T.object.isRequired,
+    dispatch: T.func.isRequired,
   };
 
   constructor(props) {
@@ -48,6 +49,7 @@ class SignIn extends Component {
     this.setState({ loading: true });
 
 
+
   };
 
   render () {
@@ -60,7 +62,6 @@ class SignIn extends Component {
         loading,
       }
     } = this;
-
 
     return (
       <div className="sign-in-page">
