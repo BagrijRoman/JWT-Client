@@ -17,21 +17,34 @@ class apiService {
         error: false,
       };
     } else {
-      return handleError(response);
+      return handleErrorResponse(response);
     }
   };
 
-  handleError = () => {
+  handleErrorResponse = () => {
 
   };
 
-  post = async (url, config) => {
-    const { handleResponse } = this;
-    const response = await this.api.post(url, config);
-    return handleResponse(response);
+  handleRequestError = () => {
+
   };
 
-  signIn = async ({ email, password }) => this.post('/auth/sign-in', { email, password });
+  // post = async (url, config) => {
+  //   const { handleResponse } = this;
+  //
+  // };
+
+  request = async (url, method, body) => {
+    try {
+      const response = await this.api[method](url, body);
+      return this.handleResponse(response);
+    } catch (err) {
+      console.log('request error ', err);
+      return { error: true };
+    }
+  };
+
+  signIn = async ({ email, password }) => this.request('/auth/sign-in', 'post', { email, password });
 }
 
 const api = new apiService({ apiBase: process.env.API_BASE });
