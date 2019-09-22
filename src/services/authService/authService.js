@@ -1,6 +1,9 @@
 import apiService from '../apiService';
 
-import { signIn as signInAction } from '../../redux/actions/accounts';
+import {
+  signIn as signInAction,
+  signOut as signOutAction,
+} from '../../redux/actions/accounts';
 import { dispatch } from '../../redux/store';
 
 class authService {
@@ -43,7 +46,10 @@ class authService {
     }
   };
 
-  signOut = () => this.removeTokens();
+  signOut = () => {
+    this.removeTokens();
+    dispatch(signOutAction());
+  }
 }
 
 export default new authService();
