@@ -162,8 +162,4 @@ class SignIn extends Component {
 
 const mapStateToProps = ({ accounts }) => ({ accounts });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   signInAction: (user) => dispatch(signIn(user))
-// });
-
 export default withRouter(connect(mapStateToProps, null)(SignIn));
