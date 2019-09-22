@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Icon} from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -65,9 +65,15 @@ class SignIn extends Component {
     this.setState({ loading: false });
   };
 
+  onSignUpClick = () => this.props.history.push(routes.SIGN_UP);
+
+  onForgotPasswordClick = () => this.props.history.push(routes.FORGOT_PASSWORD);
+
   render () {
     const {
       onSignInClick,
+      onSignUpClick,
+      onForgotPasswordClick,
       onInputChange,
       state: {
         email,
@@ -104,14 +110,42 @@ class SignIn extends Component {
           </Form>
           <Button
             {...{
+              icon: true,
+              labelPosition: 'left',
               primary: true,
-              content: 'Sign in',
-              className: 'sign-in-btn',
+              className: 'sign-in-form-btn',
               loading,
               disabled: loading,
               onClick: onSignInClick,
             }}
-          />
+          >
+            <Icon name="sign-in" />
+            Sign in
+          </Button>
+          <Button
+            {...{
+              icon: true,
+              labelPosition: 'left',
+              className: 'sign-in-form-btn',
+              disabled: loading,
+              onClick: onSignUpClick,
+            }}
+          >
+            <Icon name="add user" />
+            Sign up
+          </Button>
+          <Button
+            {...{
+              icon: true,
+              labelPosition: 'left',
+              className: 'sign-in-form-btn',
+              disabled: loading,
+              onClick: onForgotPasswordClick,
+            }}
+          >
+            <Icon name="question" />
+            Forgot password
+          </Button>
         </div>
       </div>
     );
