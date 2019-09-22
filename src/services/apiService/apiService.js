@@ -9,7 +9,7 @@ class apiService {
 
   handleResponse = (response) => {
     const { data, status } = response;
-    const { handleError } = this;
+    const { handleRequestError } = this;
 
     if (status >= 200 && status < 300) {
       return {
@@ -17,30 +17,27 @@ class apiService {
         error: false,
       };
     } else {
-      return handleErrorResponse(response);
+      return handleRequestError(response);
     }
   };
 
-  handleErrorResponse = () => {
+  handleRequestError = (err) => {
+    const { status, data: { type, details } } = err.response;
 
+    return {
+      error: true,
+      type,
+      details,
+    }
   };
-
-  handleRequestError = () => {
-
-  };
-
-  // post = async (url, config) => {
-  //   const { handleResponse } = this;
-  //
-  // };
 
   request = async (url, method, body) => {
+    const { handleResponse, handleRequestError } = this;
     try {
       const response = await this.api[method](url, body);
-      return this.handleResponse(response);
+      return handleResponse(response);
     } catch (err) {
-      console.log('request error ', err);
-      return { error: true };
+      return handleRequestError(err);
     }
   };
 

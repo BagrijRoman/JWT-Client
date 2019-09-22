@@ -41,7 +41,6 @@ class authService {
 
       return { _id, email, name, error };
     } else {
-      console.log('response error ', error);
       return apiResponse;
     }
   };

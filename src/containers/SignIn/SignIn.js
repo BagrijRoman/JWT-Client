@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 import { routes } from '../../const';
 import { authService } from '../../services';
-// import { signIn } from '../../actions/accounts';
+import { notificator } from '../../utils';
 
 class SignIn extends Component {
   static propTypes = {
@@ -64,10 +64,8 @@ class SignIn extends Component {
     toggleLoading();
     const authResult = await authService.signIn({ email, password });
 
-    if (!authResult.error) {
-      // signInAction(authResult);
-    } else {
-      // todo handle error here
+    if (authResult.error) {
+      notificator.error(authResult.details.message); // todo message should be trnaslated
     }
 
     toggleLoading();

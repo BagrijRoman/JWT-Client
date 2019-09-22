@@ -7,35 +7,34 @@ class notificator {
     this.defaultConfig = {
       position: notificator.POSITION.TOP_RIGHT,
       autoClose: 5000,
-      className: 'app-notification',
+      className: 'app-_notification',
     };
   }
 
-  _notification(content, config ) {
+  _notification = (content, config ) => {
     const { notificator, defaultConfig } = this;
-
     notificator(content, { ...defaultConfig, ...config });
-  }
+  };
 
-  success(msg) {
+  success = (msg) => {
     const { _notification, notificator } = this;
     _notification(msg, { type: notificator.TYPE.SUCCESS });
-  }
+  };
 
-  info(msg) {
+  info = (msg) => {
     const { _notification, notificator } = this;
     _notification(msg, { type: notificator.TYPE.INFO });
-  }
+  };
 
-  warning(msg) {
+  warning = (msg) => {
     const { _notification, notificator } = this;
     _notification(msg, { type: notificator.TYPE.WARNING });
-  }
+  };
 
-  error(msg) {
+  error = (msg) => {
     const { _notification, notificator } = this;
     _notification(msg, { type: notificator.TYPE.ERROR });
-  }
+  };
 }
 
 export default new notificator(toast);
