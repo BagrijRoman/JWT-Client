@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import store from './store';
+import store from './redux/store';
 import { AppLayout, AuthLayout } from './components/layout';
 import { CustomRoute } from './components/routes';
 import { routes } from './const';

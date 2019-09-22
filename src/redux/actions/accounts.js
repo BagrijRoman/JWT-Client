@@ -1,4 +1,4 @@
-import { authService } from '../services';
+import { authService } from '../../services';
 
 export const TEST_ACTION = 'TEST::ACTION';
 export const SIGN_IN = 'ACCOUNTS::SIGN_IN';

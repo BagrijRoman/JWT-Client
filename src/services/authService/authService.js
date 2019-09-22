@@ -1,7 +1,7 @@
 import apiService from '../apiService';
 
-import { signIn as signInAction } from '../../actions/accounts';
-import { dispatch } from '../../store';
+import { signIn as signInAction } from '../../redux/actions/accounts';
+import { dispatch } from '../../redux/store';
 
 class authService {
   storeTokens = ({ token, refreshToken }) => {
