@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Icon} from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { routes } from '../../const';
 import { authService } from '../../services';
-import { signIn } from '../../actions/accounts';
+import { notificator } from '../../utils';
 
 class SignIn extends Component {
   static propTypes = {
     accounts: T.object.isRequired,
     history: T.object.isRequired,
-    signInAction: T.func.isRequired,
   };
 
   constructor(props) {
@@ -31,6 +30,10 @@ class SignIn extends Component {
     }
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
   componentWillReceiveProps(nextProps) {
     const { accounts, history } = nextProps;
 
@@ -39,35 +42,44 @@ class SignIn extends Component {
     }
   };
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  toggleLoading = () => {
+    const { state: { loading }, _isMounted } = this;
+
+    if (_isMounted) {
+      this.setState({ loading: !loading });
+    }
+  };
+
   onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
 
   onSignInClick = async () => {
     const {
-      props: {
-        signInAction,
-      },
-      state: {
-        email,
-        password,
-      },
+      toggleLoading,
+      state: { email, password}
     } = this;
-
-    this.setState({ loading: true });
-
+    toggleLoading();
     const authResult = await authService.signIn({ email, password });
 
-    if (!authResult.error) {
-      signInAction(authResult);
-    } else {
-      // todo handle error here
+    if (authResult.error) {
+      notificator.error(authResult.details.message); // todo message should be trnaslated
     }
 
-    this.setState({ loading: false });
+    toggleLoading();
   };
+
+  onSignUpClick = () => this.props.history.push(routes.SIGN_UP);
+
+  onForgotPasswordClick = () => this.props.history.push(routes.FORGOT_PASSWORD);
 
   render () {
     const {
       onSignInClick,
+      onSignUpClick,
+      onForgotPasswordClick,
       onInputChange,
       state: {
         email,
@@ -104,14 +116,42 @@ class SignIn extends Component {
           </Form>
           <Button
             {...{
+              icon: true,
+              labelPosition: 'left',
               primary: true,
-              content: 'Sign in',
-              className: 'sign-in-btn',
+              className: 'sign-in-form-btn',
               loading,
               disabled: loading,
               onClick: onSignInClick,
             }}
-          />
+          >
+            <Icon name="sign-in" />
+            Sign in
+          </Button>
+          <Button
+            {...{
+              icon: true,
+              labelPosition: 'left',
+              className: 'sign-in-form-btn',
+              disabled: loading,
+              onClick: onSignUpClick,
+            }}
+          >
+            <Icon name="add user" />
+            Sign up
+          </Button>
+          <Button
+            {...{
+              icon: true,
+              labelPosition: 'left',
+              className: 'sign-in-form-btn',
+              disabled: loading,
+              onClick: onForgotPasswordClick,
+            }}
+          >
+            <Icon name="question" />
+            Forgot password
+          </Button>
         </div>
       </div>
     );
@@ -120,8 +160,4 @@ class SignIn extends Component {
 
 const mapStateToProps = ({ accounts }) => ({ accounts });
 
-const mapDispatchToProps = (dispatch) => ({
-  signInAction: (user) => dispatch(signIn(user))
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignIn));
+export default withRouter(connect(mapStateToProps, null)(SignIn));

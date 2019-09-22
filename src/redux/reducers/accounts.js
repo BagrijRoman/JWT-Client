@@ -1,4 +1,7 @@
-import { TEST_ACTION, SIGN_IN, SIGN_OUT } from '../actions/accounts';
+import {
+  SIGN_IN,
+  SIGN_OUT,
+} from '../actionTypes/accounts';
 
 const initialState = {
   isAuthenticated: false,
@@ -9,12 +12,6 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case TEST_ACTION:
-      return {
-        ...state,
-        testActionExequted: true,
-      };
-
     case SIGN_IN:
       return {
         ...state,
