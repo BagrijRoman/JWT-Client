@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
-import { Button, Form, Icon, Message } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -115,16 +115,14 @@ class SignIn extends Component {
         password,
         loading,
         errors,
-        emailError,
-        passwordError,
       }
     } = this;
 
     return (
-      <div className="sign-in-page">
-        <div className="sign-in-container">
+      <div className="sign-page">
+        <div className="sign-container">
           <h3>Sign in</h3>
-          <Form error>
+          <Form>
             <Form.Input
               {...{
                 label: 'Email',

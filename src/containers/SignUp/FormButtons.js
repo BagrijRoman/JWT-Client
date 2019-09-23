@@ -6,25 +6,11 @@ const FormButtons = ({
                        loading,
                        onSignInClick,
                        onSignUpClick,
-                       onForgotPasswordClick,
                      }) => (
   <>
     <Button
       {...{
-        icon: true,
-        labelPosition: 'left',
         primary: true,
-        className: 'sign-form-btn',
-        loading,
-        disabled: loading,
-        onClick: onSignInClick,
-      }}
-    >
-      <Icon name="sign-in" />
-      Sign in
-    </Button>
-    <Button
-      {...{
         icon: true,
         labelPosition: 'left',
         className: 'sign-form-btn',
@@ -40,12 +26,13 @@ const FormButtons = ({
         icon: true,
         labelPosition: 'left',
         className: 'sign-form-btn',
+        loading,
         disabled: loading,
-        onClick: onForgotPasswordClick,
+        onClick: onSignInClick,
       }}
     >
-      <Icon name="question" />
-      Forgot password
+      <Icon name="sign-in" />
+      Sign in
     </Button>
   </>
 );
@@ -54,7 +41,6 @@ FormButtons.propTypes = {
   loading: T.bool.isRequired,
   onSignInClick: T.func.isRequired,
   onSignUpClick: T.func.isRequired,
-  onForgotPasswordClick: T.func.isRequired,
 };
 
 export default FormButtons;
