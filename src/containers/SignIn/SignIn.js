@@ -29,25 +29,11 @@ class SignIn extends Component {
         passowrd: false,
       },
     };
-
-    const { accounts, history } = props;
-
-    if (accounts.isAuthenticated) {
-      history.replace(routes.HOME);
-    }
   }
 
   componentDidMount() {
     this._isMounted = true;
   }
-
-  componentWillReceiveProps(nextProps) {
-    const { accounts, history } = nextProps;
-
-    if (accounts.isAuthenticated) {
-      history.replace(routes.HOME);
-    }
-  };
 
   componentWillUnmount() {
     this._isMounted = false;
