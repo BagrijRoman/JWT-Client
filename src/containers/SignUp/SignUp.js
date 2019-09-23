@@ -12,11 +12,7 @@ class SignUp extends Component {
 
   }
 
-
-
   render() {
-
-
     return (
       <h3>Sign up page</h3>
     );
