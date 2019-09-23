@@ -6,9 +6,10 @@ import { withRouter } from 'react-router-dom';
 
 import FormButtons from './FormButtons';
 
-import { routes } from '../../const';
+import { routes, errors } from '../../const';
 import { authService } from '../../services';
 import { notificator } from '../../utils';
+import validationSchema from './validationSchema';
 
 class SignIn extends Component {
   static propTypes = {
@@ -23,7 +24,10 @@ class SignIn extends Component {
       email: '',
       password: '',
       loading: false,
-      error: false,
+      errors: {
+        email: false,
+        passowrd: false,
+      },
     };
 
     const { accounts, history } = props;
@@ -49,29 +53,65 @@ class SignIn extends Component {
     this._isMounted = false;
   }
 
-  toggleLoading = () => {
-    const { state: { loading }, _isMounted } = this;
+  toggleLoading = (value) => {
+    const { _isMounted } = this;
 
     if (_isMounted) {
-      this.setState({ loading: !loading });
+      this.setState({ loading: value });
     }
   };
 
   onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
 
+  validateForm = (data) => {
+    const result = validationSchema.validate(data);
+
+    if (result.error) {
+      const { message, context: { key } } =  result.error.details[0];
+
+      return { error: {
+        type: errors.VALIDATION_ERROR,
+        details: { key, message },
+      }};
+    }
+
+    return { error: false };
+  };
+
+  setError = (error) => {
+    const stateUpdates = { errors: {} };
+
+    if (error) {
+      const { message, key } =  error.details;
+      Object.assign(stateUpdates, { errors: { [key]: message } });  // todo message should be trnaslated
+      notificator.error(message); // todo message should be trnaslated
+    }
+
+    this.setState(stateUpdates);
+  };
+
   onSignInClick = async () => {
     const {
       toggleLoading,
-      state: { email, password}
+      validateForm,
+      setError,
+      state: { email, password },
     } = this;
-    toggleLoading();
-    const authResult = await authService.signIn({ email, password });
+    toggleLoading(true);
 
-    if (authResult.error) {
-      notificator.error(authResult.details.message); // todo message should be trnaslated
+    const { error } = validateForm({ email, password });
+
+    if (error) {
+      setError(error);
+    } else {
+      const authResult = await authService.signIn({ email, password });
+
+      if (authResult.error) {
+        setError(authResult.error);
+      }
     }
 
-    toggleLoading();
+    toggleLoading(false);
   };
 
   onSignUpClick = () => this.props.history.push(routes.SIGN_UP);
@@ -88,7 +128,9 @@ class SignIn extends Component {
         email,
         password,
         loading,
-        error,
+        errors,
+        emailError,
+        passwordError,
       }
     } = this;
 
@@ -105,6 +147,7 @@ class SignIn extends Component {
                 value: email,
                 onChange: onInputChange('email'),
                 disabled: loading,
+                error: errors.email,
               }}
             />
             <Form.Input
@@ -115,13 +158,9 @@ class SignIn extends Component {
                 value: password,
                 onChange: onInputChange('password'),
                 disabled: loading,
+                error: errors.password,
               }}
             />
-            {error ? <Message {...{
-              error: true,
-              header: error.header,
-              content: error.content,
-            }}/> : null}
           </Form>
           <FormButtons
             {...{
