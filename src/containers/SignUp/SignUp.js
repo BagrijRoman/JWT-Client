@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
 import { Form } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom';
 
 import FormButtons from './FormButtons';
 
+import { authService } from '../../services';
 import { routes } from '../../const';
+import { notificator, validateDataBySchema } from '../../utils';
+import signUpValidationSchema from './validationSchema';
 
 class SignUp extends Component {
   static propTypes = {
-
+    history: T.object.isRequired,
   };
 
   constructor(props) {
@@ -29,10 +33,70 @@ class SignUp extends Component {
     };
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  toggleLoading = (value) => {
+    const { _isMounted } = this;
+
+    if (_isMounted) {
+      this.setState({ loading: value });
+    }
+  };
+
+  setError = (error) => {
+    const stateUpdates = { errors: {} };
+
+    if (error) {
+      const { message, key } =  error.details;
+      Object.assign(stateUpdates, { errors: { [key]: message } });  // todo message should be trnaslated
+      notificator.error(message); // todo message should be trnaslated
+    }
+
+    this.setState(stateUpdates);
+  };
+
+  resetErrors = () => this.setState({ errors: {} });
+
   onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
 
-  onSignUpClick = () => {
+  onSignUpClick = async () => {
+    const {
+      state: {
+        name,
+        email,
+        password,
+        rePassword,
+      },
+      toggleLoading,
+      setError,
+      resetErrors,
+    } = this;
+    toggleLoading(true);
+    const data = { name, email, password, rePassword };
+    const { error } = validateDataBySchema(data, signUpValidationSchema);
 
+    if (error) {
+      setError(error);
+    } else {
+      resetErrors();
+      const authResult = await authService.signUp(data);
+
+      console.log('authResult ', authResult);
+
+      debugger;
+
+      if (authResult.error) {
+        setError(authResult);
+      }
+    }
+
+    toggleLoading(false);
   };
 
   onSignInClick = () => this.props.history.push(routes.SIGN_IN);
@@ -116,4 +180,4 @@ class SignUp extends Component {
   };
 }
 
-export default SignUp;
+export default withRouter(SignUp);

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
 import { Form } from 'semantic-ui-react'
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import FormButtons from './FormButtons';
@@ -13,7 +12,6 @@ import signInValidationSchema from './validationSchema';
 
 class SignIn extends Component {
   static propTypes = {
-    accounts: T.object.isRequired,
     history: T.object.isRequired,
   };
 
@@ -61,10 +59,13 @@ class SignIn extends Component {
     this.setState(stateUpdates);
   };
 
+  resetErrors = () => this.setState({ errors: {} });
+
   onSignInClick = async () => {
     const {
       toggleLoading,
       setError,
+      resetErrors,
       state: { email, password },
     } = this;
     toggleLoading(true);
@@ -74,6 +75,7 @@ class SignIn extends Component {
     if (error) {
       setError(error);
     } else {
+      resetErrors();
       const authResult = await authService.signIn({ email, password });
 
       if (authResult.error) {
@@ -144,6 +146,4 @@ class SignIn extends Component {
   };
 }
 
-const mapStateToProps = ({ accounts }) => ({ accounts });
-
-export default withRouter(connect(mapStateToProps, null)(SignIn));
+export default withRouter(SignIn);
