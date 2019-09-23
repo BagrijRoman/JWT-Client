@@ -107,7 +107,7 @@ class SignIn extends Component {
       const authResult = await authService.signIn({ email, password });
 
       if (authResult.error) {
-        setError(authResult.error);
+        setError(authResult);
       }
     }
 
