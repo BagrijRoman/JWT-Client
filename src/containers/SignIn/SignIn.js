@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
-import { Button, Form, Icon} from 'semantic-ui-react'
+import { Button, Form, Icon, Message } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
+import FormButtons from './FormButtons';
 
 import { routes } from '../../const';
 import { authService } from '../../services';
@@ -21,6 +23,7 @@ class SignIn extends Component {
       email: '',
       password: '',
       loading: false,
+      error: false,
     };
 
     const { accounts, history } = props;
@@ -85,6 +88,7 @@ class SignIn extends Component {
         email,
         password,
         loading,
+        error,
       }
     } = this;
 
@@ -92,7 +96,7 @@ class SignIn extends Component {
       <div className="sign-in-page">
         <div className="sign-in-container">
           <h3>Sign in</h3>
-          <Form>
+          <Form error>
             <Form.Input
               {...{
                 label: 'Email',
@@ -113,45 +117,20 @@ class SignIn extends Component {
                 disabled: loading,
               }}
             />
+            {error ? <Message {...{
+              error: true,
+              header: error.header,
+              content: error.content,
+            }}/> : null}
           </Form>
-          <Button
+          <FormButtons
             {...{
-              icon: true,
-              labelPosition: 'left',
-              primary: true,
-              className: 'sign-in-form-btn',
               loading,
-              disabled: loading,
-              onClick: onSignInClick,
+              onSignInClick,
+              onSignUpClick,
+              onForgotPasswordClick,
             }}
-          >
-            <Icon name="sign-in" />
-            Sign in
-          </Button>
-          <Button
-            {...{
-              icon: true,
-              labelPosition: 'left',
-              className: 'sign-in-form-btn',
-              disabled: loading,
-              onClick: onSignUpClick,
-            }}
-          >
-            <Icon name="add user" />
-            Sign up
-          </Button>
-          <Button
-            {...{
-              icon: true,
-              labelPosition: 'left',
-              className: 'sign-in-form-btn',
-              disabled: loading,
-              onClick: onForgotPasswordClick,
-            }}
-          >
-            <Icon name="question" />
-            Forgot password
-          </Button>
+          />
         </div>
       </div>
     );
