@@ -15,8 +15,10 @@ class SignUp extends Component {
     super(props);
 
     this.state = {
+      name: '',
       email: '',
       password: '',
+      rePassword: '',
       loading: false,
       errors: {
         name: false,
@@ -41,8 +43,10 @@ class SignUp extends Component {
       onSignInClick,
       onInputChange,
       state: {
+        name,
         email,
         password,
+        rePassword,
         loading,
         errors,
       }
@@ -56,9 +60,9 @@ class SignUp extends Component {
             <Form.Input
               {...{
                 label: 'Name',
-                type: 'name',
+                type: 'text',
                 placeholder: 'Input name here...',
-                value: email,
+                value: name,
                 onChange: onInputChange('name'),
                 disabled: loading,
                 error: errors.name,
@@ -89,9 +93,9 @@ class SignUp extends Component {
             <Form.Input
               {...{
                 label: 'Confirm Password',
-                type: 'rePassword',
+                type: 'password',
                 placeholder: 'Confirm password here...',
-                value: password,
+                value: rePassword,
                 onChange: onInputChange('rePassword'),
                 disabled: loading,
                 error: errors.rePassword,
