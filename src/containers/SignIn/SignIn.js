@@ -8,8 +8,8 @@ import FormButtons from './FormButtons';
 
 import { routes, errors } from '../../const';
 import { authService } from '../../services';
-import { notificator } from '../../utils';
-import validationSchema from './validationSchema';
+import { notificator, validateDataBySchema } from '../../utils';
+import signInValidationSchema from './validationSchema';
 
 class SignIn extends Component {
   static propTypes = {
@@ -49,21 +49,6 @@ class SignIn extends Component {
 
   onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
 
-  validateForm = (data) => {
-    const result = validationSchema.validate(data);
-
-    if (result.error) {
-      const { message, context: { key } } =  result.error.details[0];
-
-      return { error: {
-        type: errors.VALIDATION_ERROR,
-        details: { key, message },
-      }};
-    }
-
-    return { error: false };
-  };
-
   setError = (error) => {
     const stateUpdates = { errors: {} };
 
@@ -79,13 +64,12 @@ class SignIn extends Component {
   onSignInClick = async () => {
     const {
       toggleLoading,
-      validateForm,
       setError,
       state: { email, password },
     } = this;
     toggleLoading(true);
 
-    const { error } = validateForm({ email, password });
+    const { error } = validateDataBySchema({ email, password }, signInValidationSchema);
 
     if (error) {
       setError(error);
