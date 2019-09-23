@@ -45,6 +45,13 @@ class authService {
     }
   };
 
+  signUp = async (data) => {
+    const { name, email, password, rePassword } = data;
+
+
+
+  };
+
   signOut = () => {
     this.removeTokens();
     dispatch(signOutAction());

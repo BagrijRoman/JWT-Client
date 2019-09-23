@@ -47,6 +47,11 @@ module.exports = {
       }
     ],
   },
+  node: {
+    net: 'empty',
+    tls: 'empty',
+    dns: 'empty'
+  },
   plugins: [
     new webpack.EnvironmentPlugin(['ENV', 'API_BASE']),
     new HtmlWebPackPlugin({

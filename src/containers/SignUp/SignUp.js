@@ -5,12 +5,12 @@ import { withRouter } from 'react-router-dom';
 
 import FormButtons from './FormButtons';
 
-import { routes, errors } from '../../const';
 import { authService } from '../../services';
+import { routes } from '../../const';
 import { notificator, validateDataBySchema } from '../../utils';
-import signInValidationSchema from './validationSchema';
+import signUpValidationSchema from './validationSchema';
 
-class SignIn extends Component {
+class SignUp extends Component {
   static propTypes = {
     history: T.object.isRequired,
   };
@@ -19,12 +19,16 @@ class SignIn extends Component {
     super(props);
 
     this.state = {
+      name: '',
       email: '',
       password: '',
+      rePassword: '',
       loading: false,
       errors: {
+        name: false,
         email: false,
         passowrd: false,
+        rePassword: false,
       },
     };
   }
@@ -45,8 +49,6 @@ class SignIn extends Component {
     }
   };
 
-  onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
-
   setError = (error) => {
     const stateUpdates = { errors: {} };
 
@@ -61,22 +63,33 @@ class SignIn extends Component {
 
   resetErrors = () => this.setState({ errors: {} });
 
-  onSignInClick = async () => {
+  onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
+
+  onSignUpClick = async () => {
     const {
+      state: {
+        name,
+        email,
+        password,
+        rePassword,
+      },
       toggleLoading,
       setError,
       resetErrors,
-      state: { email, password },
     } = this;
     toggleLoading(true);
-
-    const { error } = validateDataBySchema({ email, password }, signInValidationSchema);
+    const data = { name, email, password, rePassword };
+    const { error } = validateDataBySchema(data, signUpValidationSchema);
 
     if (error) {
       setError(error);
     } else {
       resetErrors();
-      const authResult = await authService.signIn({ email, password });
+      const authResult = await authService.signUp(data);
+
+      console.log('authResult ', authResult);
+
+      debugger;
 
       if (authResult.error) {
         setError(authResult);
@@ -86,19 +99,18 @@ class SignIn extends Component {
     toggleLoading(false);
   };
 
-  onSignUpClick = () => this.props.history.push(routes.SIGN_UP);
-
-  onForgotPasswordClick = () => this.props.history.push(routes.FORGOT_PASSWORD);
+  onSignInClick = () => this.props.history.push(routes.SIGN_IN);
 
   render () {
     const {
-      onSignInClick,
       onSignUpClick,
-      onForgotPasswordClick,
+      onSignInClick,
       onInputChange,
       state: {
+        name,
         email,
         password,
+        rePassword,
         loading,
         errors,
       }
@@ -107,8 +119,19 @@ class SignIn extends Component {
     return (
       <div className="sign-page">
         <div className="sign-container">
-          <h3>Sign in</h3>
-          <Form>
+          <h3>Sign up</h3>
+          <Form error>
+            <Form.Input
+              {...{
+                label: 'Name',
+                type: 'text',
+                placeholder: 'Input name here...',
+                value: name,
+                onChange: onInputChange('name'),
+                disabled: loading,
+                error: errors.name,
+              }}
+            />
             <Form.Input
               {...{
                 label: 'Email',
@@ -131,13 +154,24 @@ class SignIn extends Component {
                 error: errors.password,
               }}
             />
+            <Form.Input
+              {...{
+                label: 'Confirm Password',
+                type: 'password',
+                placeholder: 'Confirm password here...',
+                value: rePassword,
+                onChange: onInputChange('rePassword'),
+                disabled: loading,
+                error: errors.rePassword,
+              }}
+            />
           </Form>
+
           <FormButtons
             {...{
               loading,
               onSignInClick,
               onSignUpClick,
-              onForgotPasswordClick,
             }}
           />
         </div>
@@ -146,4 +180,4 @@ class SignIn extends Component {
   };
 }
 
-export default withRouter(SignIn);
+export default withRouter(SignUp);
