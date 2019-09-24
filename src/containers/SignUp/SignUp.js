@@ -87,10 +87,6 @@ class SignUp extends Component {
       resetErrors();
       const authResult = await authService.signUp(data);
 
-      console.log('authResult ', authResult);
-
-      debugger;
-
       if (authResult.error) {
         setError(authResult);
       }

@@ -7,53 +7,65 @@ import {
 import { dispatch } from '../../redux/store';
 
 class authService {
-  storeTokens = ({ token, refreshToken }) => {
+  _storeTokens = ({ token, refreshToken }) => {
     localStorage.setItem('token', token);
     localStorage.setItem('refreshToken', refreshToken);
   };
 
-  removeTokens = () => {
+  _removeTokens = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
   };
 
-  checkToken = () => {};
+  _checkToken = () => {};
 
-  getAccessToken = () => localStorage.getItem('token');
+  _getAccessToken = () => localStorage.getItem('token');
 
-  getRefreshToken = () => localStorage.getItem('refreshToken');
+  _getRefreshToken = () => localStorage.getItem('refreshToken');
+
+  _processSignInData = (data) => {
+    const { _storeTokens } = this;
+    const {
+      _id,
+      name,
+      email,
+      token,
+      refreshToken,
+    } = data;
+
+    _storeTokens({ token, refreshToken });
+    dispatch(signInAction({ _id, name, email }));
+
+    return { _id, email, name };
+  };
 
   signIn = async ({ email, password }) => {
-    const { storeTokens } = this;
+    const { _processSignInData } = this;
     const apiResponse = await apiService.signIn({ email, password });
-    const { error } = apiResponse;
+    const { error, data } = apiResponse;
 
     if (!error) {
-      const {
-        _id,
-        name,
-        token,
-        refreshToken,
-      } = apiResponse.data;
-
-      storeTokens({ token, refreshToken });
-      dispatch(signInAction({ _id, name, email }));
-
-      return { _id, email, name, error };
+      return _processSignInData(data);
     } else {
       return apiResponse;
     }
   };
 
-  signUp = async (data) => {
-    const { name, email, password, rePassword } = data;
+  signUp = async (postData) => {
+    const { _processSignInData } = this;
+    const { name, email, password, rePassword } = postData;
+    const apiResponse = await apiService.signUp({ name, email, password, rePassword });
+    const { error, data } = apiResponse;
 
-
-
+    if (!error) {
+      return _processSignInData(data);
+    } else {
+      return apiResponse;
+    }
   };
 
   signOut = () => {
-    this.removeTokens();
+    this._removeTokens();
     dispatch(signOutAction());
   }
 }
