@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import apiEndpoints from './apiEndpoints';
+
 class apiService {
   constructor({ apiBase }) {
     this.api = axios.create({
@@ -24,6 +26,8 @@ class apiService {
   handleRequestError = (err) => {
     const { status, data: { type, details } } = err.response;
 
+    // todo add status parsing here
+
     return {
       error: true,
       type,
@@ -41,7 +45,10 @@ class apiService {
     }
   };
 
-  signIn = async ({ email, password }) => this.request('/auth/sign-in', 'post', { email, password });
+  signIn = async ({ email, password }) => this.request(apiEndpoints.signIn, 'post', { email, password });
+
+  signUp = async ({ name, email, password, rePassword }) =>
+    this.request(apiEndpoints.signUp, 'post', { name, email, password, rePassword });
 }
 
 const api = new apiService({ apiBase: process.env.API_BASE });
