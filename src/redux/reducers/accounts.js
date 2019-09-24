@@ -1,9 +1,11 @@
 import {
   SIGN_IN,
   SIGN_OUT,
+  SET_LOADING,
 } from '../actionTypes/accounts';
 
 const initialState = {
+  loading: true,
   isAuthenticated: false,
   user: {},
 };
@@ -24,6 +26,12 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: false,
         user: {}
+      };
+
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: payload,
       };
 
     default:
