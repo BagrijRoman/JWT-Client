@@ -1,9 +1,13 @@
+import jwt from 'jsonwebtoken';
+
 import apiService from '../apiService';
 
 import {
   signIn as signInAction,
   signOut as signOutAction,
+  setLoading,
 } from '../../redux/actions/accounts';
+
 import { dispatch } from '../../redux/store';
 
 class authService {
@@ -17,11 +21,21 @@ class authService {
     localStorage.removeItem('refreshToken');
   };
 
-  _checkToken = () => {};
+  _checkToken = (token) => token ? (jwt.decode(token).exp - 5) > (Date.now() / 1000) : false;
 
   _getAccessToken = () => localStorage.getItem('token');
 
   _getRefreshToken = () => localStorage.getItem('refreshToken');
+
+  _checkAccessToken = () => {
+    const { _getAccessToken, _checkToken } = this;
+    return _checkToken(_getAccessToken());
+  };
+
+  _checkRefreshToken = () => {
+    const { _getRefreshToken, _checkToken } = this;
+    return _checkToken(_getRefreshToken());
+  };
 
   _processSignInData = (data) => {
     const { _storeTokens } = this;
@@ -37,6 +51,34 @@ class authService {
     dispatch(signInAction({ _id, name, email }));
 
     return { _id, email, name };
+  };
+
+  checkAuth = async () => {
+    const {
+      _checkAccessToken,
+      _checkRefreshToken,
+      _getRefreshToken,
+      signOut,
+    } = this;
+
+    const isRefreshTokenValid = _checkRefreshToken();
+
+    if (isRefreshTokenValid) {
+      const response = await apiService.refreshToken(_getRefreshToken());
+
+      console.log('response 123 ', response);
+
+      // check
+
+    } else {
+      signOut();
+    }
+
+
+    // check token
+    // if exists  -  refresh it/set user data into storage/toggle off preloader
+    // if not exists ot token is invalid - sign out and toggle loading false
+
   };
 
   signIn = async ({ email, password }) => {
@@ -67,6 +109,7 @@ class authService {
   signOut = () => {
     this._removeTokens();
     dispatch(signOutAction());
+    dispatch(setLoading(false));
   }
 }
 

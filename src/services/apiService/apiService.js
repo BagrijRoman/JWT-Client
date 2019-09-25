@@ -35,10 +35,10 @@ class apiService {
     }
   };
 
-  request = async (url, method, body) => {
+  request = async (url, method, body, options = {}) => {
     const { handleResponse, handleRequestError } = this;
     try {
-      const response = await this.api[method](url, body);
+      const response = await this.api[method](url, body, options);
       return handleResponse(response);
     } catch (err) {
       return handleRequestError(err);
@@ -49,6 +49,12 @@ class apiService {
 
   signUp = async ({ name, email, password, rePassword }) =>
     this.request(apiEndpoints.signUp, 'post', { name, email, password, rePassword });
+
+  refreshToken = async (refreshToken) => this.request(
+    apiEndpoints.refreshToken,
+    'get',
+    { headers: { Authorization: refreshToken } }
+  );
 }
 
 const api = new apiService({ apiBase: process.env.API_BASE });
