@@ -16,6 +16,13 @@ class SplashScreen extends Component {
     authService.checkAuth();
   }
 
+  shouldComponentUpdate(nextProps) {
+    const { loading } = this.props.accounts;
+    const { loading: nextLoading } = nextProps;
+
+    return loading !== nextLoading;
+  }
+
   render() {
     const { accounts, children } = this.props;
 
