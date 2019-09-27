@@ -55,30 +55,24 @@ class authService {
 
   checkAuth = async () => {
     const {
-      _checkAccessToken,
       _checkRefreshToken,
       _getRefreshToken,
+      _processSignInData,
       signOut,
     } = this;
 
     const isRefreshTokenValid = _checkRefreshToken();
 
     if (isRefreshTokenValid) {
-      const response = await apiService.refreshToken(_getRefreshToken());
+      const { error, data } = await apiService.refreshToken(_getRefreshToken());
 
-      console.log('response 123 ', response);
-
-      // check
-
-    } else {
-      signOut();
+      if (!error) {
+        dispatch(setLoading(false));
+        return _processSignInData(data);
+      }
     }
 
-
-    // check token
-    // if exists  -  refresh it/set user data into storage/toggle off preloader
-    // if not exists ot token is invalid - sign out and toggle loading false
-
+    signOut();
   };
 
   signIn = async ({ email, password }) => {
@@ -88,9 +82,9 @@ class authService {
 
     if (!error) {
       return _processSignInData(data);
-    } else {
-      return apiResponse;
     }
+
+    return apiResponse;
   };
 
   signUp = async (postData) => {
@@ -101,9 +95,9 @@ class authService {
 
     if (!error) {
       return _processSignInData(data);
-    } else {
-      return apiResponse;
     }
+
+    return apiResponse;
   };
 
   signOut = () => {
