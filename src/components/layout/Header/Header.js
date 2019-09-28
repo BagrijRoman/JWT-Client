@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import T from 'prop-types';
 import { connect } from 'react-redux';
 
-import SignInSignUpPanel from './SignInSignUpPanel';
 import UserPanel from './UserPanel';
 
 class Header extends Component {
@@ -15,7 +14,7 @@ class Header extends Component {
   }
 
   render () {
-    const { isAuthenticated } = this.props.accounts;
+
 
     return (
       <header className="app-header">
@@ -25,7 +24,7 @@ class Header extends Component {
           </div>
 
           <div className="header-right-panel">
-            {isAuthenticated ? <UserPanel/> : <SignInSignUpPanel/>}
+            <UserPanel/>
           </div>
         </div>
       </header>
