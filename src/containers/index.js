@@ -3,6 +3,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import ResetPassword from './ResetPassword';
 import ForgotPassword from './ForgotPassword';
+import Profile from './Profile';
 import './index.scss';
 
 export {
@@ -11,4 +12,5 @@ export {
   SignUp,
   ResetPassword,
   ForgotPassword,
+  Profile,
 }

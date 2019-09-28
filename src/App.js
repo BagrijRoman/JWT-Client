@@ -14,14 +14,16 @@ import {
   SignUp,
   ForgotPassword,
   ResetPassword,
+  Profile,
 } from './containers';
 
-
-export default () => (
+const App = () => (
   <Provider store={store}>
     <SpalshScreenWrapper>
       <Router>
         <CustomRoute {...{ exact: true, path: routes.HOME, component: HomePage, layout: AppLayout, redirectTo: routes.SIGN_IN, authStatus: true }} />
+        <CustomRoute {...{ exact: true, path: routes.PROFILE, component: Profile, layout: AppLayout, redirectTo: routes.SIGN_IN, authStatus: true }} />
+
         <CustomRoute {...{ exact: true, path: routes.SIGN_IN, component: SignIn, layout: AuthLayout, redirectTo: routes.HOME, authStatus: false }} />
         <CustomRoute {...{ exact: true, path: routes.SIGN_UP, component: SignUp, layout: AuthLayout, redirectTo: routes.HOME, authStatus: false }} />
         <CustomRoute {...{ exact: true, path: routes.RESET_PASSWORD, component: ResetPassword, layout: AuthLayout, redirectTo: routes.HOME, authStatus: false }} />
@@ -31,3 +33,5 @@ export default () => (
     <ToastContainer/>
   </Provider>
 );
+
+export default App;
