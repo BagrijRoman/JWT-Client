@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 import apiService from '../apiService';
+import { notificator } from '../../utils';
+import { errors, messages } from '../../const';
 
 import {
   signIn as signInAction,
@@ -64,12 +66,25 @@ class authService {
     const isRefreshTokenValid = _checkRefreshToken();
 
     if (isRefreshTokenValid) {
-      const { error, data } = await apiService.refreshToken(_getRefreshToken());
+      const { error, data, networkError, unauthorized } = await apiService.refreshToken(_getRefreshToken());
 
       if (!error) {
-        dispatch(setLoading(false));
-        return _processSignInData(data);
+        _processSignInData(data);
       }
+
+      if (networkError) {
+        const checkAuthTimeout = process.env.AUTH_CHECK_TIMEOUT;
+        notificator.error(errors.CHECK_AUTH_NETWORK_ERROR);  // todo translate message
+        notificator.info(`${messages.AUTH_RECHECK_IN} ${checkAuthTimeout/1000} sec`);
+        setTimeout(this.checkAuth, checkAuthTimeout);
+        return;
+      }
+
+      if (unauthorized) {
+        return signOut();
+      }
+
+      return dispatch(setLoading(false));
     }
 
     signOut();

@@ -53,7 +53,11 @@ module.exports = {
     dns: 'empty'
   },
   plugins: [
-    new webpack.EnvironmentPlugin(['ENV', 'API_BASE']),
+    new webpack.EnvironmentPlugin([
+      'ENV',
+      'API_BASE',
+      'AUTH_CHECK_TIMEOUT',
+    ]),
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html',

@@ -1,5 +1,7 @@
 import axios from 'axios';
+import * as R from 'ramda';
 
+import { errors } from '../../const';
 import apiEndpoints from './apiEndpoints';
 
 class apiService {
@@ -10,6 +12,7 @@ class apiService {
   }
 
   handleResponse = (response) => {
+    console.log('handleResponse');
     const { data, status } = response;
     const { handleRequestError } = this;
 
@@ -24,14 +27,18 @@ class apiService {
   };
 
   handleRequestError = (err) => {
-    const { status, data: { type, details } } = err.response;
-
     // todo add status parsing here
+    console.log('handleRequestError');
+
+    const status = R.pathOr(null, ['response', 'status'], err);
+    console.log('status ', status);
+    console.log('err.message ', err.message);
 
     return {
       error: true,
-      type,
-      details,
+      type: R.pathOr(null, ['response', 'data', 'type'], err),
+      details: R.pathOr(null, ['response', 'data', 'details'], err),
+      networkError: err.message === errors.NETWORK_ERROR
     }
   };
 
