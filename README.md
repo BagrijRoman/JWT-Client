@@ -1,8 +1,8 @@
-#JWT-Client
+# JWT-Client
 
 React/Redux Jwt client
 
-###Description
+### Description
 This is boilerplate app with some basic widely-used functionality.
 
 ## Run guide
@@ -19,14 +19,14 @@ Setup and run JWT-Server app https://github.com/BagrijRoman/JWT-Server
 * Run project
 ```npm run dev```
 
-###Features
+### Features
 - Sign up
 - Sign in
 - Check Token while startup
 - Check token while request
 - Refreshing tokens
 
-###Will be added
+### Will be added
 - i18n
 - Restore password functionality
 - Change password
@@ -34,7 +34,7 @@ Setup and run JWT-Server app https://github.com/BagrijRoman/JWT-Server
 
 
 
-####todo
+#### todo
 
 - add user profile page base
 
