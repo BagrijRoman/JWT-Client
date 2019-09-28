@@ -1,5 +1,5 @@
 const en = {
-  key: 'value',
+  header: 'header EN',
 };
 
 export default en;

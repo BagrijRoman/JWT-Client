@@ -8,6 +8,7 @@ import * as R from 'ramda';
 import { authService } from '../../../services';
 import { routes } from '../../../const';
 
+
 const UserPanel = ({ userName, history }) => (
   <div className="user-panel-container">
     <Dropdown

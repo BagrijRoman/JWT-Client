@@ -1,12 +1,19 @@
-import { en } from './localizations';
+import { setLocale } from 'react-redux-i18n';
 
-const translations = {
+import { en, de } from './localizations';
+import localizationKeys from './localizationKeys';
+
+import { dispatch } from '../redux/store';
+
+const localizations = {
   en,
+  de,
 };
 
-const defaultTranslation = 'en';
+const setLocalization = key => dispatch(setLocale(key));
 
 export {
-  translations,
-  defaultTranslation,
+  localizations,
+  localizationKeys,
+  setLocalization,
 };

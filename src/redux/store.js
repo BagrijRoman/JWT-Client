@@ -14,7 +14,7 @@ import {
 } from 'react-redux-i18n';
 
 import { accountsReducer } from './reducers';
-import { translations, defaultTranslation } from '../i18n';
+import { localizations, localizationKeys } from '../i18n';
 
 const initialState = {};
 const middleWare = [applyMiddleware(thunk)];
@@ -36,8 +36,8 @@ const store = createStore(
 const { dispatch } = store;
 
 syncTranslationWithStore(store);
-dispatch(loadTranslations(translations));
-dispatch(setLocale(defaultTranslation));
+dispatch(loadTranslations(localizations));
+dispatch(setLocale(localizationKeys.DEFAULT));
 
 export default store;
 
