@@ -6,6 +6,8 @@ const INVALID_EMAIL_OR_PASSWORD_SPECIFIED = 'invalidEmailOrPasswordSpecified';
 const NAME_SHOULD_BE_FROM_THREE_TO_THIRTY_SYMBOLS = 'nameShouldBeFromThreeToThirtySymbols';
 const PASSWORD_CONFIRMATION_SHOULD_MATCH = 'passwordConfirmationShouldMatch';
 const EMAIL_ALREADY_IN_USE = 'emailAlreadyInUse';
+const NETWORK_ERROR = 'Network Error';
+const CHECK_AUTH_NETWORK_ERROR = 'checkAuthNetworkError';
 
 export default {
   VALIDATION_ERROR,
@@ -16,4 +18,6 @@ export default {
   NAME_SHOULD_BE_FROM_THREE_TO_THIRTY_SYMBOLS,
   PASSWORD_CONFIRMATION_SHOULD_MATCH,
   EMAIL_ALREADY_IN_USE,
+  NETWORK_ERROR,
+  CHECK_AUTH_NETWORK_ERROR,
 };
