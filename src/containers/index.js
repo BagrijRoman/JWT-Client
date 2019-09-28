@@ -3,8 +3,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import ResetPassword from './ResetPassword';
 import ForgotPassword from './ForgotPassword';
-import SplashScreen from './SplashScreen';
-
+import Profile from './Profile';
 import './index.scss';
 
 export {
@@ -13,5 +12,5 @@ export {
   SignUp,
   ResetPassword,
   ForgotPassword,
-  SplashScreen,
+  Profile,
 }
