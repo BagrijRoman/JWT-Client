@@ -6,12 +6,20 @@ import {
   compose,
 } from 'redux';
 import { createLogger } from 'redux-logger';
+import {
+  i18nReducer,
+  syncTranslationWithStore,
+  loadTranslations,
+  setLocale
+} from 'react-redux-i18n';
 
 import { accountsReducer } from './reducers';
+import { translations, defaultTranslation } from '../i18n';
 
 const initialState = {};
 const middleWare = [applyMiddleware(thunk)];
 const appReducer = combineReducers({
+  i18n: i18nReducer,
   accounts: accountsReducer,
 });
 
@@ -26,6 +34,10 @@ const store = createStore(
 );
 
 const { dispatch } = store;
+
+syncTranslationWithStore(store);
+dispatch(loadTranslations(translations));
+dispatch(setLocale(defaultTranslation));
 
 export default store;
 

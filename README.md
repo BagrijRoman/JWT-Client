@@ -45,6 +45,7 @@ Setup and run JWT-Server app https://github.com/BagrijRoman/JWT-Server
 - add restore password page and related functionnality
 
 - add i18n
+- add i18n config into database and load it on startup
 
 - add run prod instruction
 - add build instruction
