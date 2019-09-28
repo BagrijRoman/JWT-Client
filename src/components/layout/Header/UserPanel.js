@@ -1,12 +1,14 @@
 import React from 'react';
 import T from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
-import { connect } from 'react-redux'
 import * as R from 'ramda';
 
 import { authService } from '../../../services';
+import { routes } from '../../../const';
 
-const UserPanel = ({ userName }) => (
+const UserPanel = ({ userName, history }) => (
   <div className="user-panel-container">
     <Dropdown
       text={userName}
@@ -17,7 +19,7 @@ const UserPanel = ({ userName }) => (
       className='icon'
     >
       <Dropdown.Menu>
-        <Dropdown.Item icon='info' text='Profile' />
+        <Dropdown.Item icon='info' text='Profile' onClick={() => history.push(routes.PROFILE)} />
         <Dropdown.Item icon='envelope' text='Inbox' />
         <Dropdown.Item icon='settings' text='Settings' />
         <Dropdown.Divider />
@@ -29,8 +31,12 @@ const UserPanel = ({ userName }) => (
 
 UserPanel.propTypes = {
   userName: T.string.isRequired,
+  history: T.object.isRequired,
 };
 
 const mapStateToProps = ({ accounts }) => ({ userName: R.pathOr('user name' /*todo translate here*/, ['user', 'name'], accounts) });
 
-export default connect(mapStateToProps, null)(UserPanel);
+export default R.compose(
+  withRouter,
+  connect(mapStateToProps, null),
+)(UserPanel);
