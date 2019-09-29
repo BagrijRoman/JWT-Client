@@ -17,6 +17,7 @@ class ForgotPassword extends Component {
 
     this.state = {
       email: '',
+      requestWasSent: false,
       loading: false,
       errors: {
         email: false,
