@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
-import { Form } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 
@@ -117,7 +117,7 @@ class SignUp extends Component {
       <div className="sign-page">
         <div className="sign-container">
           <h3>{I18n.t('signUpHeader')}</h3>
-          <Form error>
+          <Form>
             <Form.Input
               {...{
                 label: I18n.t('name'),
