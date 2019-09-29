@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import T from 'prop-types';
 import { Form } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
+import { I18n } from 'react-redux-i18n';
 
 import FormButtons from './FormButtons';
 
@@ -107,13 +108,13 @@ class SignIn extends Component {
     return (
       <div className="sign-page">
         <div className="sign-container">
-          <h3>Sign in</h3>
+          <h3>{I18n.t('signInHeader')}</h3>
           <Form>
             <Form.Input
               {...{
-                label: 'Email',
+                label: I18n.t('email'),
                 type: 'email',
-                placeholder: 'Type email here...',
+                placeholder: I18n.t('typeEmailHere'),
                 value: email,
                 onChange: onInputChange('email'),
                 disabled: loading,
@@ -122,9 +123,9 @@ class SignIn extends Component {
             />
             <Form.Input
               {...{
-                label: 'Password',
+                label: I18n.t('password'),
                 type: 'password',
-                placeholder: 'Enter password here...',
+                placeholder: I18n.t('typePasswordHere'),
                 value: password,
                 onChange: onInputChange('password'),
                 disabled: loading,

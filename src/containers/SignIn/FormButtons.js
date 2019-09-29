@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
 import { Button, Icon } from 'semantic-ui-react'
+import { I18n } from 'react-redux-i18n';
 
 const FormButtons = ({
                        loading,
@@ -21,7 +22,7 @@ const FormButtons = ({
       }}
     >
       <Icon name="sign-in" />
-      Sign in
+      {I18n.t('signIn')}
     </Button>
     <Button
       {...{
@@ -33,7 +34,7 @@ const FormButtons = ({
       }}
     >
       <Icon name="add user" />
-      Sign up
+      {I18n.t('signUp')}
     </Button>
     <Button
       {...{
@@ -45,7 +46,7 @@ const FormButtons = ({
       }}
     >
       <Icon name="question" />
-      Forgot password
+      {I18n.t('forgotPassword')}
     </Button>
   </>
 );
