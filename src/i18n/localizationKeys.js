@@ -1,10 +1,13 @@
 const EN = 'en';
 const DE = 'de';
-const DEFAULT = EN;
+const UA = 'ua';
+// const DEFAULT = EN;
+const DEFAULT = UA;
 
 const localizationKeys = {
   EN,
   DE,
+  UA,
   DEFAULT,
 };
 

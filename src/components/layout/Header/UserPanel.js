@@ -1,5 +1,6 @@
 import React from 'react';
 import T from 'prop-types';
+import { I18n } from 'react-redux-i18n';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
@@ -19,11 +20,11 @@ const UserPanel = ({ userName, history }) => (
       className='icon'
     >
       <Dropdown.Menu>
-        <Dropdown.Item icon='info' text='Profile' onClick={() => history.push(routes.PROFILE)} />
-        <Dropdown.Item icon='envelope' text='Inbox' />
-        <Dropdown.Item icon='settings' text='Settings' />
+        <Dropdown.Item icon='info' text={I18n.t('profile')} onClick={() => history.push(routes.PROFILE)} />
+        <Dropdown.Item icon='envelope' text={I18n.t('inbox')} />
+        <Dropdown.Item icon='settings' text={I18n.t('settings')} />
         <Dropdown.Divider />
-        <Dropdown.Item icon='sign-out' text='Sign out' onClick={authService.signOut} />
+        <Dropdown.Item icon='sign-out' text={I18n.t('signOut')} onClick={authService.signOut} />
       </Dropdown.Menu>
     </Dropdown>
   </div>
@@ -34,7 +35,7 @@ UserPanel.propTypes = {
   history: T.object.isRequired,
 };
 
-const mapStateToProps = ({ accounts }) => ({ userName: R.pathOr('user name' /*todo translate here*/, ['user', 'name'], accounts) });
+const mapStateToProps = ({ accounts }) => ({ userName: R.pathOr(I18n.t('userName'), ['user', 'name'], accounts) });
 
 export default R.compose(
   withRouter,
