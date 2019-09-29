@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import T from 'prop-types';
 import { Form } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
+import { I18n } from 'react-redux-i18n';
 
 import FormButtons from './FormButtons';
 
@@ -115,13 +116,13 @@ class SignUp extends Component {
     return (
       <div className="sign-page">
         <div className="sign-container">
-          <h3>Sign up</h3>
+          <h3>{I18n.t('signUpHeader')}</h3>
           <Form error>
             <Form.Input
               {...{
-                label: 'Name',
+                label: I18n.t('name'),
                 type: 'text',
-                placeholder: 'Input name here...',
+                placeholder: I18n.t('typeNameHere'),
                 value: name,
                 onChange: onInputChange('name'),
                 disabled: loading,
@@ -130,9 +131,9 @@ class SignUp extends Component {
             />
             <Form.Input
               {...{
-                label: 'Email',
+                label: I18n.t('email'),
                 type: 'email',
-                placeholder: 'Type email here...',
+                placeholder: I18n.t('typeEmailHere'),
                 value: email,
                 onChange: onInputChange('email'),
                 disabled: loading,
@@ -141,9 +142,9 @@ class SignUp extends Component {
             />
             <Form.Input
               {...{
-                label: 'Password',
+                label: I18n.t('password'),
                 type: 'password',
-                placeholder: 'Enter password here...',
+                placeholder: I18n.t('typePasswordHere'),
                 value: password,
                 onChange: onInputChange('password'),
                 disabled: loading,
@@ -152,9 +153,9 @@ class SignUp extends Component {
             />
             <Form.Input
               {...{
-                label: 'Confirm Password',
+                label: I18n.t('confirmPassword'),
                 type: 'password',
-                placeholder: 'Confirm password here...',
+                placeholder: I18n.t('confirmPasswordHere'),
                 value: rePassword,
                 onChange: onInputChange('rePassword'),
                 disabled: loading,
