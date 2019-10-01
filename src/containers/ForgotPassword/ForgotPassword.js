@@ -6,6 +6,7 @@ import { I18n } from 'react-redux-i18n';
 import { Form, Button, Icon } from 'semantic-ui-react';
 import { FormBaseComponent } from '../../components';
 
+import { apiService } from '../../services';
 import { routes } from '../../const';
 import { validateDataBySchema } from '../../utils';
 import forgotPasswordValidationSchema from './validationSchema';
@@ -33,15 +34,18 @@ class ForgotPassword extends FormBaseComponent {
       toggleLoading,
       setError,
       resetErrors,
+      state: { email },
     } = this;
     toggleLoading(true);
-    const { error } = validateDataBySchema({ email, password }, forgotPasswordValidationSchema);
+    const { error } = validateDataBySchema({ email }, forgotPasswordValidationSchema);
 
     if (error) {
       setError(error);
     } else {
       resetErrors();
-      // const authResult = await authService.signIn({ email, password });
+      const requestResult = await apiService.resetPasswordRequest({ email });
+
+      console.log('requestResult ', requestResult);
 
       // if (authResult.error) {
       //   setError(authResult);
@@ -69,7 +73,7 @@ class ForgotPassword extends FormBaseComponent {
       <div className="forgot-password-page sign-page">
         <div className="sign-container">
           <h3>{I18n.t('resetPassword')}</h3>
-          <Form>
+          <Form noValidate>
             <Form.Input
               {...{
                 label: I18n.t('email'),
@@ -81,7 +85,6 @@ class ForgotPassword extends FormBaseComponent {
                 error: errors.email,
               }}
             />
-
             <Button
               {...{
                 primary: true,

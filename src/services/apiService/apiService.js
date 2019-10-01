@@ -25,7 +25,7 @@ class apiService {
     }
   };
 
-  handleRequestError = (err) => {
+  handleRequestError = (err) =>  {
     const status = R.pathOr(null, ['response', 'status'], err);
 
     return {
