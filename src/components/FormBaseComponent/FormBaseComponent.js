@@ -18,7 +18,11 @@ class FormBaseComponent extends Component {
     }
   };
 
-  onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
+  onInputChange = (valueKey) => (e, data) => {
+    const { errors: stateErrors } = this.state;
+    const errors = { ...stateErrors, [valueKey]: null };
+    this.setState({ [valueKey]: data.value, errors });
+  };
 
   setError = (error) => {
     const stateUpdates = { errors: {} };
