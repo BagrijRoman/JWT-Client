@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import T from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 
 import { Form, Button, Icon } from 'semantic-ui-react';
+import { FormBaseComponent } from '../../components';
 
 import { routes } from '../../const';
-import { notificator, validateDataBySchema } from '../../utils';
+import { validateDataBySchema } from '../../utils';
 import forgotPasswordValidationSchema from './validationSchema';
 
-class ForgotPassword extends Component {
+class ForgotPassword extends FormBaseComponent {
   static propTypes = {
     history: T.object.isRequired,
   };
@@ -26,30 +27,6 @@ class ForgotPassword extends Component {
       },
     };
   }
-
-  toggleLoading = (value) => {
-    const { _isMounted } = this;
-
-    if (_isMounted) {
-      this.setState({ loading: value });
-    }
-  };
-
-  onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
-
-  setError = (error) => {
-    const stateUpdates = { errors: {} };
-
-    if (error) {
-      const { message, key } =  error.details;
-      Object.assign(stateUpdates, { errors: { [key]: message } });  // todo message should be trnaslated
-      notificator.error(message); // todo message should be trnaslated
-    }
-
-    this.setState(stateUpdates);
-  };
-
-  resetErrors = () => this.setState({ errors: {} });
 
   onGetResetLinkClick = async () => {
     const {

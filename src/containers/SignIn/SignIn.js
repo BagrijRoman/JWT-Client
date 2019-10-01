@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import T from 'prop-types';
 import { Form } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';

@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import T from 'prop-types';
 import { Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { I18n } from 'react-redux-i18n';
 
+import { FormBaseComponent } from '../../components';
 import FormButtons from './FormButtons';
 
 import { authService } from '../../services';
 import { routes } from '../../const';
-import { notificator, validateDataBySchema } from '../../utils';
+import { validateDataBySchema } from '../../utils';
 import signUpValidationSchema from './validationSchema';
 
-class SignUp extends Component {
+class SignUp extends FormBaseComponent {
   static propTypes = {
     history: T.object.isRequired,
   };
@@ -33,38 +34,6 @@ class SignUp extends Component {
       },
     };
   }
-
-  componentDidMount() {
-    this._isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  toggleLoading = (value) => {
-    const { _isMounted } = this;
-
-    if (_isMounted) {
-      this.setState({ loading: value });
-    }
-  };
-
-  setError = (error) => {
-    const stateUpdates = { errors: {} };
-
-    if (error) {
-      const { message, key } =  error.details;
-      Object.assign(stateUpdates, { errors: { [key]: message } });  // todo message should be trnaslated
-      notificator.error(message); // todo message should be trnaslated
-    }
-
-    this.setState(stateUpdates);
-  };
-
-  resetErrors = () => this.setState({ errors: {} });
-
-  onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
 
   onSignUpClick = async () => {
     const {
