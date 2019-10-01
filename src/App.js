@@ -7,7 +7,7 @@ import store from './redux/store';
 import { AppLayout, AuthLayout } from './components/layout';
 import { CustomRoute } from './components/routes';
 import { routes } from './const';
-import { SpalshScreenWrapper } from './components';
+import { SplashScreenWrapper } from './components';
 import {
   HomePage,
   SignIn,
@@ -19,7 +19,7 @@ import {
 
 const App = () => (
   <Provider store={store}>
-    <SpalshScreenWrapper>
+    <SplashScreenWrapper>
       <Router>
         <CustomRoute {...{ exact: true, path: routes.HOME, component: HomePage, layout: AppLayout, redirectTo: routes.SIGN_IN, authStatus: true }} />
         <CustomRoute {...{ exact: true, path: routes.PROFILE, component: Profile, layout: AppLayout, redirectTo: routes.SIGN_IN, authStatus: true }} />
@@ -29,7 +29,7 @@ const App = () => (
         <CustomRoute {...{ exact: true, path: routes.RESET_PASSWORD, component: ResetPassword, layout: AuthLayout, redirectTo: routes.HOME, authStatus: false }} />
         <CustomRoute {...{ exact: true, path: routes.FORGOT_PASSWORD, component: ForgotPassword, layout: AuthLayout, redirectTo: routes.HOME, authStatus: false }} />
       </Router>
-    </SpalshScreenWrapper>
+    </SplashScreenWrapper>
     <ToastContainer/>
   </Provider>
 );

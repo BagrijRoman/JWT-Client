@@ -1,16 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import T from 'prop-types';
-import { Form } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { I18n } from 'react-redux-i18n';
 
+import { FormBaseComponent } from '../../components';
 import FormButtons from './FormButtons';
 
 import { authService } from '../../services';
 import { routes } from '../../const';
-import { notificator, validateDataBySchema } from '../../utils';
+import { validateDataBySchema } from '../../utils';
 import signUpValidationSchema from './validationSchema';
 
-class SignUp extends Component {
+class SignUp extends FormBaseComponent {
   static propTypes = {
     history: T.object.isRequired,
   };
@@ -33,38 +35,6 @@ class SignUp extends Component {
     };
   }
 
-  componentDidMount() {
-    this._isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  toggleLoading = (value) => {
-    const { _isMounted } = this;
-
-    if (_isMounted) {
-      this.setState({ loading: value });
-    }
-  };
-
-  setError = (error) => {
-    const stateUpdates = { errors: {} };
-
-    if (error) {
-      const { message, key } =  error.details;
-      Object.assign(stateUpdates, { errors: { [key]: message } });  // todo message should be trnaslated
-      notificator.error(message); // todo message should be trnaslated
-    }
-
-    this.setState(stateUpdates);
-  };
-
-  resetErrors = () => this.setState({ errors: {} });
-
-  onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
-
   onSignUpClick = async () => {
     const {
       state: {
@@ -85,10 +55,10 @@ class SignUp extends Component {
       setError(error);
     } else {
       resetErrors();
-      const authResult = await authService.signUp(data);
+      const signUpResult = await authService.signUp(data);
 
-      if (authResult.error) {
-        setError(authResult);
+      if (signUpResult.error) {
+        setError(signUpResult);
       }
     }
 
@@ -115,13 +85,13 @@ class SignUp extends Component {
     return (
       <div className="sign-page">
         <div className="sign-container">
-          <h3>Sign up</h3>
-          <Form error>
+          <h3>{I18n.t('signUpHeader')}</h3>
+          <Form>
             <Form.Input
               {...{
-                label: 'Name',
+                label: I18n.t('name'),
                 type: 'text',
-                placeholder: 'Input name here...',
+                placeholder: I18n.t('typeNameHere'),
                 value: name,
                 onChange: onInputChange('name'),
                 disabled: loading,
@@ -130,9 +100,9 @@ class SignUp extends Component {
             />
             <Form.Input
               {...{
-                label: 'Email',
+                label: I18n.t('email'),
                 type: 'email',
-                placeholder: 'Type email here...',
+                placeholder: I18n.t('typeEmailHere'),
                 value: email,
                 onChange: onInputChange('email'),
                 disabled: loading,
@@ -141,9 +111,9 @@ class SignUp extends Component {
             />
             <Form.Input
               {...{
-                label: 'Password',
+                label: I18n.t('password'),
                 type: 'password',
-                placeholder: 'Enter password here...',
+                placeholder: I18n.t('typePasswordHere'),
                 value: password,
                 onChange: onInputChange('password'),
                 disabled: loading,
@@ -152,9 +122,9 @@ class SignUp extends Component {
             />
             <Form.Input
               {...{
-                label: 'Confirm Password',
+                label: I18n.t('confirmPassword'),
                 type: 'password',
-                placeholder: 'Confirm password here...',
+                placeholder: I18n.t('confirmPasswordHere'),
                 value: rePassword,
                 onChange: onInputChange('rePassword'),
                 disabled: loading,

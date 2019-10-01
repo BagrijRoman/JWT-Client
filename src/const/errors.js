@@ -8,6 +8,9 @@ const PASSWORD_CONFIRMATION_SHOULD_MATCH = 'passwordConfirmationShouldMatch';
 const EMAIL_ALREADY_IN_USE = 'emailAlreadyInUse';
 const NETWORK_ERROR = 'Network Error';
 const CHECK_AUTH_NETWORK_ERROR = 'checkAuthNetworkError';
+const USER_WITH_MAIL_DOES_NOT_EXISTS = 'userWithMailDoesNotExists';
+const INVALID_PASSWORD_SPECIFIED = 'invalidPasswordSpecified';
+const PASSWORD_MUST_BE_DIFFERENT_WITH_PREV_ONE = 'passwordMustBeDifferentWithPrevOne';
 
 export default {
   VALIDATION_ERROR,
@@ -20,4 +23,7 @@ export default {
   EMAIL_ALREADY_IN_USE,
   NETWORK_ERROR,
   CHECK_AUTH_NETWORK_ERROR,
+  USER_WITH_MAIL_DOES_NOT_EXISTS,
+  INVALID_PASSWORD_SPECIFIED,
+  PASSWORD_MUST_BE_DIFFERENT_WITH_PREV_ONE,
 };

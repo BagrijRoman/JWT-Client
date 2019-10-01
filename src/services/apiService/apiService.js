@@ -25,11 +25,12 @@ class apiService {
     }
   };
 
-  handleRequestError = (err) => {
+  handleRequestError = (err) =>  {
     const status = R.pathOr(null, ['response', 'status'], err);
 
     return {
       error: true,
+      errorKey: R.pathOr(null, ['response', 'data', 'errorKey'], err),
       type: R.pathOr(null, ['response', 'data', 'type'], err),
       details: R.pathOr(null, ['response', 'data', 'details'], err),
       networkError: err.message === errors.NETWORK_ERROR,
@@ -37,10 +38,10 @@ class apiService {
     }
   };
 
-  request = async (url, method, body, options = {}) => {
+  request = async (url, method, bodyOrHeaders, options = {}) => {
     const { handleResponse, handleRequestError } = this;
     try {
-      const response = await this.api[method](url, body, options);
+      const response = await this.api[method](url, bodyOrHeaders, options);
       return handleResponse(response);
     } catch (err) {
       return handleRequestError(err);
@@ -56,6 +57,19 @@ class apiService {
     apiEndpoints.refreshToken,
     'get',
     { headers: { Authorization: refreshToken } }
+  );
+
+  resetPasswordRequest = async ({ email }) => this.request(
+    apiEndpoints.resetPasswordRequest,
+    'post',
+    { email }
+  );
+
+  resetPassword = async (resetPasswordToken, { password, rePassword }) => this.request(
+    apiEndpoints.resetPassword,
+    'post',
+    { password, rePassword },
+    { headers: { Authorization: resetPasswordToken } }
   );
 }
 

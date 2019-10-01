@@ -1,11 +1,9 @@
-const signIn = '/auth/sign-in';
-const signUp = '/auth/sign-up';
-const refreshToken = '/auth/refresh';
-
 const apiEndpoints = {
-  signIn,
-  signUp,
-  refreshToken,
+  signIn: '/auth/sign-in',
+  signUp: '/auth/sign-up',
+  refreshToken: '/auth/refresh',
+  resetPassword: '/auth/reset-password',
+  resetPasswordRequest: '/auth/reset-password-request',
 };
 
 export default apiEndpoints;
