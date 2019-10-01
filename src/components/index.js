@@ -1,5 +1,7 @@
-import SpalshScreenWrapper from './SplashScreenWrapper';
+import SplashScreenWrapper from './SplashScreenWrapper';
+import FormBaseComponent from './FormBaseComponent';
 
 export {
-  SpalshScreenWrapper,
+  SplashScreenWrapper,
+  FormBaseComponent,
 };
