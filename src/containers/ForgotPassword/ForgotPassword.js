@@ -6,6 +6,7 @@ import { I18n } from 'react-redux-i18n';
 import { Form, Button, Icon } from 'semantic-ui-react';
 
 import { routes } from '../../const';
+import forgotPasswordValidationSchema from './validationSchema';
 
 class ForgotPassword extends Component {
   static propTypes = {
