@@ -30,6 +30,7 @@ class apiService {
 
     return {
       error: true,
+      errorKey: R.pathOr(null, ['response', 'data', 'errorKey'], err),
       type: R.pathOr(null, ['response', 'data', 'type'], err),
       details: R.pathOr(null, ['response', 'data', 'details'], err),
       networkError: err.message === errors.NETWORK_ERROR,
