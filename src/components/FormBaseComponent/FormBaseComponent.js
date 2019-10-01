@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { I18n } from 'react-redux-i18n';
+
 import { notificator } from '../../utils';
 
 class FormBaseComponent extends Component {
@@ -29,8 +31,8 @@ class FormBaseComponent extends Component {
 
     if (error) {
       const { message, key } =  error.details;
-      Object.assign(stateUpdates, { errors: { [key]: message } });  // todo message should be trnaslated
-      notificator.error(message); // todo message should be trnaslated
+      Object.assign(stateUpdates, { errors: { [key]: I18n.t(message) } });
+      notificator.error(I18n.t(message));
     }
 
     this.setState(stateUpdates);
