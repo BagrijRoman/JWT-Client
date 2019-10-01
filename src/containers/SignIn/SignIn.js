@@ -6,7 +6,7 @@ import { I18n } from 'react-redux-i18n';
 
 import FormButtons from './FormButtons';
 
-import { routes, errors } from '../../const';
+import { routes } from '../../const';
 import { authService } from '../../services';
 import { notificator, validateDataBySchema } from '../../utils';
 import signInValidationSchema from './validationSchema';

@@ -6,6 +6,7 @@ import { I18n } from 'react-redux-i18n';
 import { Form, Button, Icon } from 'semantic-ui-react';
 
 import { routes } from '../../const';
+import { notificator, validateDataBySchema } from '../../utils';
 import forgotPasswordValidationSchema from './validationSchema';
 
 class ForgotPassword extends Component {
@@ -36,11 +37,39 @@ class ForgotPassword extends Component {
 
   onInputChange = (valueKey) => (e, data) => this.setState({ [valueKey]: data.value });
 
-  onGetResetLinkClick = () => {
-    const { toggleLoading } = this;
+  setError = (error) => {
+    const stateUpdates = { errors: {} };
+
+    if (error) {
+      const { message, key } =  error.details;
+      Object.assign(stateUpdates, { errors: { [key]: message } });  // todo message should be trnaslated
+      notificator.error(message); // todo message should be trnaslated
+    }
+
+    this.setState(stateUpdates);
+  };
+
+  resetErrors = () => this.setState({ errors: {} });
+
+  onGetResetLinkClick = async () => {
+    const {
+      toggleLoading,
+      setError,
+      resetErrors,
+    } = this;
     toggleLoading(true);
+    const { error } = validateDataBySchema({ email, password }, forgotPasswordValidationSchema);
 
+    if (error) {
+      setError(error);
+    } else {
+      resetErrors();
+      // const authResult = await authService.signIn({ email, password });
 
+      // if (authResult.error) {
+      //   setError(authResult);
+      // }
+    }
 
     toggleLoading(false);
   };

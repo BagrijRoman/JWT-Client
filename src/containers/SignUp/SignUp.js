@@ -86,10 +86,10 @@ class SignUp extends Component {
       setError(error);
     } else {
       resetErrors();
-      const authResult = await authService.signUp(data);
+      const signUpResult = await authService.signUp(data);
 
-      if (authResult.error) {
-        setError(authResult);
+      if (signUpResult.error) {
+        setError(signUpResult);
       }
     }
 
