@@ -8,7 +8,7 @@ import { FormBaseComponent } from '../../components';
 
 import { apiService } from '../../services';
 import { routes } from '../../const';
-import { validateDataBySchema } from '../../utils';
+import { validateDataBySchema, notificator } from '../../utils';
 import forgotPasswordValidationSchema from './validationSchema';
 
 class ForgotPassword extends FormBaseComponent {
@@ -44,12 +44,14 @@ class ForgotPassword extends FormBaseComponent {
     } else {
       resetErrors();
       const requestResult = await apiService.resetPasswordRequest({ email });
+      const { error, errorKey } = requestResult;
 
-      console.log('requestResult ', requestResult);
+      if (error && errorKey) {
+        notificator.error(I18n.t(errorKey));
+      }
 
-      // if (authResult.error) {
-      //   setError(authResult);
-      // }
+      // is sucess - add notification about sended email and change ui somehow.
+      // also add notification that token will expire in 15 min
     }
 
     toggleLoading(false);
