@@ -36,7 +36,7 @@ Setup and run JWT-Server app https://github.com/BagrijRoman/JWT-Server
 
 #### todo
 
-- add user profile page base
+- unify client server messages structure
 
 - add request functionality (with access token check and refresh token usage)
 
