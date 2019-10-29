@@ -5,6 +5,11 @@ class ApiService extends JwtService {
     super(config);
   }
 
+  // request
+  // request with auth
+
+  // other api calls fns
+
 }
 
 export { ApiService };
