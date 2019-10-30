@@ -1,29 +1,15 @@
-const VALIDATION_ERROR = 'validationError';
-const VALID_EMAIL_SHOULD_BE_PROVIDED = 'validEmailShouldBeProvided';
-const PASSWORD_SHOULD_BE_FROM_SIX_TO_TWENTY_SYMBOLS = 'passwordShouldBeFrom6To20Symbols';
-const USER_WITH_EMAIL_DOES_NOT_EXISTS = 'userWithEmailDoesNotExists';
-const INVALID_EMAIL_OR_PASSWORD_SPECIFIED = 'invalidEmailOrPasswordSpecified';
-const NAME_SHOULD_BE_FROM_THREE_TO_THIRTY_SYMBOLS = 'nameShouldBeFromThreeToThirtySymbols';
-const PASSWORD_CONFIRMATION_SHOULD_MATCH = 'passwordConfirmationShouldMatch';
-const EMAIL_ALREADY_IN_USE = 'emailAlreadyInUse';
-const NETWORK_ERROR = 'Network Error';
-const CHECK_AUTH_NETWORK_ERROR = 'checkAuthNetworkError';
-const USER_WITH_MAIL_DOES_NOT_EXISTS = 'userWithMailDoesNotExists';
-const INVALID_PASSWORD_SPECIFIED = 'invalidPasswordSpecified';
-const PASSWORD_MUST_BE_DIFFERENT_WITH_PREV_ONE = 'passwordMustBeDifferentWithPrevOne';
-
-export default {
-  VALIDATION_ERROR,
-  VALID_EMAIL_SHOULD_BE_PROVIDED,
-  PASSWORD_SHOULD_BE_FROM_SIX_TO_TWENTY_SYMBOLS,
-  USER_WITH_EMAIL_DOES_NOT_EXISTS,
-  INVALID_EMAIL_OR_PASSWORD_SPECIFIED,
-  NAME_SHOULD_BE_FROM_THREE_TO_THIRTY_SYMBOLS,
-  PASSWORD_CONFIRMATION_SHOULD_MATCH,
-  EMAIL_ALREADY_IN_USE,
-  NETWORK_ERROR,
-  CHECK_AUTH_NETWORK_ERROR,
-  USER_WITH_MAIL_DOES_NOT_EXISTS,
-  INVALID_PASSWORD_SPECIFIED,
-  PASSWORD_MUST_BE_DIFFERENT_WITH_PREV_ONE,
+export const errors = {
+  VALIDATION_ERROR: 'validationError',
+  VALID_EMAIL_SHOULD_BE_PROVIDED: 'validEmailShouldBeProvided',
+  PASSWORD_SHOULD_BE_FROM_SIX_TO_TWENTY_SYMBOLS: 'passwordShouldBeFrom6To20Symbols',
+  USER_WITH_EMAIL_DOES_NOT_EXISTS: 'userWithEmailDoesNotExists',
+  INVALID_EMAIL_OR_PASSWORD_SPECIFIED: 'invalidEmailOrPasswordSpecified',
+  NAME_SHOULD_BE_FROM_THREE_TO_THIRTY_SYMBOLS: 'nameShouldBeFromThreeToThirtySymbols',
+  PASSWORD_CONFIRMATION_SHOULD_MATCH: 'passwordConfirmationShouldMatch',
+  EMAIL_ALREADY_IN_USE: 'emailAlreadyInUse',
+  NETWORK_ERROR: 'Network Error',
+  CHECK_AUTH_NETWORK_ERROR: 'checkAuthNetworkError',
+  USER_WITH_MAIL_DOES_NOT_EXISTS: 'userWithMailDoesNotExists',
+  INVALID_PASSWORD_SPECIFIED: 'invalidPasswordSpecified',
+  PASSWORD_MUST_BE_DIFFERENT_WITH_PREV_ONE: 'passwordMustBeDifferentWithPrevOne',
 };

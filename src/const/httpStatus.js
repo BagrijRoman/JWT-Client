@@ -1,5 +1,3 @@
-const UNAUTHORIZED = 401;
-
-export default {
-  UNAUTHORIZED,
+export const httpStatus = {
+  UNAUTHORIZED: 401,
 };

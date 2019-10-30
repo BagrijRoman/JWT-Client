@@ -1,5 +1,3 @@
-const AUTH_RECHECK_IN = 'authRecheckIn';
-
-export default {
-  AUTH_RECHECK_IN,
+export const messages = {
+  AUTH_RECHECK_IN: 'authRecheckIn',
 };

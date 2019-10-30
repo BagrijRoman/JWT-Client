@@ -1,12 +1,7 @@
-import routes from './routes';
-import errors from './errors';
-import messages from './messages';
-import httpStatus from './httpStatus';
+export { routes } from './routes';
+export { errors } from './errors';
+export { messages } from './messages';
+export { httpStatus } from './httpStatus';
 
-
-export {
-  routes,
-  errors,
-  messages,
-  httpStatus,
-};
+export const ACCESS_TOKEN = 'accessToken';
+export const REFRESH_TOKEN = 'refreshToken';
