@@ -1,14 +1,14 @@
-import { JwtService } from './jwt.service';
+import { JwtService } from './apiBase';
+
+import { errors, httpStatus, apiEndpoints } from '../const';
 
 class ApiService extends JwtService {
   constructor (config) {
     super(config);
   }
 
-  // request
-  // request with auth
 
-  // other api calls fns
+
 
 }
 
