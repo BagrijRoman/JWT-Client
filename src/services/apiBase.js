@@ -1,5 +1,8 @@
 import axios from 'axios';
+import * as R from 'ramda';
+
 import { TokenService } from './tokenService';
+import { apiEndpoints, httpStatus } from '../const';
 
 class ApiBase extends TokenService {
   constructor (config) {
@@ -75,8 +78,23 @@ class ApiBase extends TokenService {
   }
 
   async signIn({ email, password }) {
-    // const { token, refreshToken } = userData;
-    // processSignInData
+    try {
+      const { data } = await this.request({
+        method: 'post',
+        url: apiEndpoints.signIn,
+        body: { email, password },
+      });
+      this.processSignInData(data);
+
+      return { success: true };
+    } catch (err) {
+      return {
+        error: true,
+        status: R.pathOr(null, ['response', 'status'], err),
+        dataKey: R.pathOr(null, ['response', 'data', 'data', 'key'], err),
+        msgKey: R.pathOr(null, ['response', 'data', 'msgKey'], err),
+      };
+    }
   }
 
   async signUp(formData) {

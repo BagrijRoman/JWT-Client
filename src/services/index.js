@@ -10,6 +10,9 @@ const signOutCb = () => {
 
 const signInCb = (userData) => {
   console.log('signInCb');
+
+  console.log(userData);
+
   dispatch(signInAction(userData));
 };
 
