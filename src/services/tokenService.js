@@ -1,4 +1,4 @@
-import R from 'ramda';
+import { compose } from 'ramda';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../const';
 
 class TokenService {
@@ -18,12 +18,12 @@ class TokenService {
 
   getRefreshToken = () => localStorage.getItem(REFRESH_TOKEN);
 
-  checkAccessToken = () => R.compose(
+  checkAccessToken = () => compose(
     this._checkToken,
     this.getAccessToken,
   )();
 
-  checkRefreshToken = () => R.compose(
+  checkRefreshToken = () => compose(
     this._checkToken,
     this.getRefreshToken,
   )();

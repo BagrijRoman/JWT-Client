@@ -6,7 +6,7 @@ import { I18n } from 'react-redux-i18n';
 import { Form, Button, Icon } from 'semantic-ui-react';
 import { FormBaseComponent } from '../../components';
 
-import { apiService } from '../../services';
+import { ApiService } from '../../services';
 import { routes } from '../../const';
 import { validateDataBySchema, notificator } from '../../utils';
 import forgotPasswordValidationSchema from './validationSchema';
@@ -43,11 +43,11 @@ class ForgotPassword extends FormBaseComponent {
       setError(error);
     } else {
       resetErrors();
-      const requestResult = await apiService.resetPasswordRequest({ email });
-      const { error, errorKey } = requestResult;
+      const requestResult = await ApiService.resetPasswordRequest({ email });
+      const { error, msgKey } = requestResult;
 
-      if (error && errorKey) {
-        notificator.error(I18n.t(errorKey));
+      if (error) {
+        notificator.error(I18n.t(msgKey));
       }
 
       // is sucess - add notification about sended email and change ui somehow.

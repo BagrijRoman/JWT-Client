@@ -1,11 +1,14 @@
-import { JwtService } from './apiBase';
+import { ApiBase } from './apiBase';
 
 import { errors, httpStatus, apiEndpoints } from '../const';
 
-class ApiService extends JwtService {
+class ApiService extends ApiBase {
   constructor (config) {
     super(config);
   }
+
+
+  async resetPasswordRequest({ email }) {}
 
 
 

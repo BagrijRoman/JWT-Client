@@ -52,7 +52,7 @@ class ApiBase extends TokenService {
     return isOperationSuccess;
   }
 
-  async checkTokenOnStartup() {
+  async checkAuthOnStartup() {
 
   }
 
