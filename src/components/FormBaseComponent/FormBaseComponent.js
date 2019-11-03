@@ -31,7 +31,9 @@ class FormBaseComponent extends Component {
     Object.assign(stateUpdates, { errors: { [key]: I18n.t(message) } });
     notificator.error(I18n.t(message));
 
-    this.setState(stateUpdates);
+    if (this._isMounted) {
+      this.setState(stateUpdates);
+    }
   };
 
   resetErrors = () => this.setState({ errors: {} });
