@@ -19,10 +19,6 @@ class ApiBase extends TokenService {
     this.api = axios.create({ baseURL: apiBase });
   }
 
-  async request({ url, method, body = {}, options = {} }) {
-    return this.api[method](url, method === 'get' ? options : body, options);
-  }
-
   static handleErrorResponse(err) {
     return {
       error: true,
@@ -35,25 +31,26 @@ class ApiBase extends TokenService {
     }
   }
 
-  async requestWithAuth({ url, method, body = {}, options = {} }) {
+  request = async({ url, method, body = {}, options = {} }) =>
+    this.api[method](url, method === 'get' ? options : body, options);
+
+  requestWithAuth = async ({ url, method, body = {}, options = {} }) => {
     try {
       return this.request({ url, method, body, options });
     } catch (err) {
       return this.handleErrorResponse(err);
     }
-  }
+  };
 
-  async refreshTokens() {
-    return this.request({
-      method: 'get',
-      url: apiEndpoints.refreshToken,
-      options: {
-        headers: { Authorization: this.getRefreshToken() }
-      },
-    });
-  }
+  refreshTokens = async() => this.request({
+    method: 'get',
+    url: apiEndpoints.refreshToken,
+    options: {
+      headers: { Authorization: this.getRefreshToken() }
+    },
+  });
 
-  async checkAuthOnStartup() {
+  checkAuthOnStartup = async () => {
     const isRefreshTokenValid = this.checkRefreshToken();
 
     if (isRefreshTokenValid) {
@@ -69,15 +66,15 @@ class ApiBase extends TokenService {
     } else {
       this.signOut();
     }
-  }
+  };
 
-  processSignInData(data) {
+  processSignInData = (data) => {
     const { data: { token, refreshToken, user } } = data;
     this.storeTokens({ token, refreshToken });
     this.signInCb(user);
-  }
+  };
 
-  async signIn({ email, password }) {
+  signIn = async({ email, password }) => {
     try {
       const { data } = await this.request({
         method: 'post',
@@ -96,16 +93,16 @@ class ApiBase extends TokenService {
         msgKey: R.pathOr(null, ['response', 'data', 'msgKey'], err),
       };
     }
-  }
+  };
 
-  async signUp(formData) {
+  signUp = async (formData) => {
 
     // this.storeTokens({ token, refreshToken });
     // processSignInData
 
-  }
+  };
 
-  signOut() {
+  signOut = () => {
     this.removeTokens();
     this.signOutCb();
   }

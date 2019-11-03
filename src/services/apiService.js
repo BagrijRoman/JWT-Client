@@ -8,7 +8,9 @@ class ApiService extends ApiBase {
   }
 
 
-  async resetPasswordRequest({ email }) {}
+  resetPasswordRequest = async({ email }) => {
+
+  };
 
 
 
