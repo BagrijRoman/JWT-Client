@@ -2,7 +2,7 @@ import {
   SIGN_IN,
   SIGN_OUT,
   SET_LOADING,
-} from '../actionTypes/accounts';
+} from './actionTypes';
 
 const initialState = {
   loading: true,
@@ -10,7 +10,7 @@ const initialState = {
   user: {},
 };
 
-export default (state = initialState, action) => {
+export const accountsReducer =  (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -19,13 +19,15 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         user: payload,
+        loading: false,
       };
 
     case SIGN_OUT:
       return {
         ...state,
         isAuthenticated: false,
-        user: {}
+        user: {},
+        loading: false,
       };
 
     case SET_LOADING:

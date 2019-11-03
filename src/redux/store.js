@@ -13,8 +13,8 @@ import {
   setLocale
 } from 'react-redux-i18n';
 
-import { accountsReducer } from './reducers';
 import { localizations, localizationKeys } from '../i18n';
+import { accountsReducer } from './accounts/reducer';
 
 const initialState = {};
 const middleWare = [applyMiddleware(thunk)];

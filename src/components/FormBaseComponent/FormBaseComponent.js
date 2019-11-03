@@ -26,16 +26,14 @@ class FormBaseComponent extends Component {
     this.setState({ [valueKey]: data.value, errors });
   };
 
-  setError = (error) => {
+  setError = ({ key, message }) => {
     const stateUpdates = { errors: {} };
+    Object.assign(stateUpdates, { errors: { [key]: I18n.t(message) } });
+    notificator.error(I18n.t(message));
 
-    if (error) {
-      const { message, key } =  error.details;
-      Object.assign(stateUpdates, { errors: { [key]: I18n.t(message) } });
-      notificator.error(I18n.t(message));
+    if (this._isMounted) {
+      this.setState(stateUpdates);
     }
-
-    this.setState(stateUpdates);
   };
 
   resetErrors = () => this.setState({ errors: {} });

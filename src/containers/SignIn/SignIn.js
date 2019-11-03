@@ -8,7 +8,7 @@ import { FormBaseComponent } from '../../components';
 import FormButtons from './FormButtons';
 
 import { routes } from '../../const';
-import { authService } from '../../services';
+import { ApiService } from '../../services';
 import { validateDataBySchema } from '../../utils';
 import signInValidationSchema from './validationSchema';
 
@@ -40,16 +40,16 @@ class SignIn extends FormBaseComponent {
     } = this;
     toggleLoading(true);
 
-    const { error } = validateDataBySchema({ email, password }, signInValidationSchema);
+    const { error, key, message } = validateDataBySchema({ email, password }, signInValidationSchema);
 
     if (error) {
-      setError(error);
+      setError({ key, message });
     } else {
       resetErrors();
-      const authResult = await authService.signIn({ email, password });
+      const { error, dataKey, msgKey } = await ApiService.signIn({ email, password });
 
-      if (authResult.error) {
-        setError(authResult);
+      if (error) {
+        setError({ key: dataKey, message: msgKey });
       }
     }
 

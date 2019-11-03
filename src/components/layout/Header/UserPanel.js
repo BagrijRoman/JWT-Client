@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 import * as R from 'ramda';
 
-import { authService } from '../../../services';
+import { ApiService } from '../../../services';
 import { routes } from '../../../const';
 
 const UserPanel = ({ userName, history }) => (
@@ -24,7 +24,7 @@ const UserPanel = ({ userName, history }) => (
         <Dropdown.Item icon='envelope' text={I18n.t('inbox')} />
         <Dropdown.Item icon='settings' text={I18n.t('settings')} />
         <Dropdown.Divider />
-        <Dropdown.Item icon='sign-out' text={I18n.t('signOut')} onClick={authService.signOut} />
+        <Dropdown.Item icon='sign-out' text={I18n.t('signOut')} onClick={ApiService.signOut} />
       </Dropdown.Menu>
     </Dropdown>
   </div>

@@ -3,7 +3,7 @@ import T from 'prop-types';
 import { connect } from 'react-redux';
 import { Loader, Dimmer } from 'semantic-ui-react';
 
-import { authService } from '../../services';
+import { ApiService } from '../../services';
 
 class SplashScreen extends Component {
   static propTypes = {
@@ -13,12 +13,12 @@ class SplashScreen extends Component {
   constructor(props) {
     super(props);
 
-    authService.checkAuth();
+    ApiService.checkAuthOnStartup();
   }
 
   shouldComponentUpdate(nextProps) {
     const { loading } = this.props.accounts;
-    const { loading: nextLoading } = nextProps;
+    const { loading: nextLoading } = nextProps.accounts;
 
     return loading !== nextLoading;
   }

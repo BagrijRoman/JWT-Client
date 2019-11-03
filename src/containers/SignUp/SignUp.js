@@ -7,7 +7,7 @@ import { I18n } from 'react-redux-i18n';
 import { FormBaseComponent } from '../../components';
 import FormButtons from './FormButtons';
 
-import { authService } from '../../services';
+import { ApiService } from '../../services';
 import { routes } from '../../const';
 import { validateDataBySchema } from '../../utils';
 import signUpValidationSchema from './validationSchema';
@@ -55,7 +55,7 @@ class SignUp extends FormBaseComponent {
       setError(error);
     } else {
       resetErrors();
-      const signUpResult = await authService.signUp(data);
+      const signUpResult = await ApiService.signUp(data);
 
       if (signUpResult.error) {
         setError(signUpResult);
