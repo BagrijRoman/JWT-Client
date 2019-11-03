@@ -2,7 +2,7 @@ import {
   SIGN_IN,
   SIGN_OUT,
   SET_LOADING,
-} from '../actionTypes/accounts';
+} from './actionTypes';
 
 export const signIn = (user) => ({
   type: SIGN_IN,
