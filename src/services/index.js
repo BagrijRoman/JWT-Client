@@ -1,15 +1,16 @@
 import { ApiService as Api } from './apiService';
 
-
+import { dispatch } from '../redux/store';
+import { signOut as signOutAction, signIn as signInAction } from '../redux/actions';
 
 const signOutCb = () => {
   console.log('signOutCb');
-  // redux sign out action call
+  dispatch(signOutAction());
 };
 
-const signInCb = (user) => {
+const signInCb = (userData) => {
   console.log('signInCb');
-  // sign in redux action
+  dispatch(signInAction(userData));
 };
 
 const ApiService = new Api({

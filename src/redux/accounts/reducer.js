@@ -19,13 +19,15 @@ export const accountsReducer =  (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         user: payload,
+        loading: false,
       };
 
     case SIGN_OUT:
       return {
         ...state,
         isAuthenticated: false,
-        user: {}
+        user: {},
+        loading: false,
       };
 
     case SET_LOADING:
