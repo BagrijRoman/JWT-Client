@@ -72,9 +72,9 @@ class ApiBase extends TokenService {
   }
 
   processSignInData(data) {
-    const { token, refreshToken } = data;
+    const { data: { token, refreshToken, user } } = data;
     this.storeTokens({ token, refreshToken });
-    this.signInCb(data);
+    this.signInCb(user);
   }
 
   async signIn({ email, password }) {
@@ -84,6 +84,7 @@ class ApiBase extends TokenService {
         url: apiEndpoints.signIn,
         body: { email, password },
       });
+
       this.processSignInData(data);
 
       return { success: true };

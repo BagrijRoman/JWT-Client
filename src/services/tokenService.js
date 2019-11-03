@@ -1,4 +1,6 @@
-import { compose } from 'ramda';
+import jwt from 'jsonwebtoken';
+import * as R from 'ramda';
+
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../const';
 
 class TokenService {
@@ -18,12 +20,12 @@ class TokenService {
 
   getRefreshToken = () => localStorage.getItem(REFRESH_TOKEN);
 
-  checkAccessToken = () => compose(
+  checkAccessToken = () => R.compose(
     this._checkToken,
     this.getAccessToken,
   )();
 
-  checkRefreshToken = () => compose(
+  checkRefreshToken = () => R.compose(
     this._checkToken,
     this.getRefreshToken,
   )();
