@@ -1,18 +1,20 @@
 import { ApiService as Api } from './apiService';
 
-const { API_BASE } = process.env;
-
 const signOutCb = () => {
+  console.log('signOutCb');
   // redux sign out action call
 };
 
 const signInCb = (user) => {
+  console.log('signInCb');
   // sign in redux action
 };
 
 const ApiService = new Api({
-  API_BASE,
+  apiBase: process.env.API_BASE,
+  authCheckTimeout: process.env.AUTH_CHECK_TIMEOUT,
   signOutCb,
+  signInCb
 });
 
 export { ApiService };
