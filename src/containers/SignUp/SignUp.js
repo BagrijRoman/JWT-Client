@@ -49,16 +49,16 @@ class SignUp extends FormBaseComponent {
     } = this;
     toggleLoading(true);
     const data = { name, email, password, rePassword };
-    const { error } = validateDataBySchema(data, signUpValidationSchema);
+    const { error, key, message } = validateDataBySchema(data, signUpValidationSchema);
 
     if (error) {
-      setError(error);
+      setError({ key, message });
     } else {
       resetErrors();
-      const signUpResult = await ApiService.signUp(data);
+      const { error, dataKey, msgKey } = await ApiService.signUp(data);
 
-      if (signUpResult.error) {
-        setError(signUpResult);
+      if (error) {
+        setError({ key: dataKey, message: msgKey });
       }
     }
 

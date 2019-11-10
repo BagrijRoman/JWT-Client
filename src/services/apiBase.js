@@ -96,10 +96,24 @@ class ApiBase extends TokenService {
   };
 
   signUp = async (formData) => {
+    try {
+      const { data } = await this.request({
+        method: 'post',
+        url: apiEndpoints.signUp,
+        body: formData,
+      });
 
-    // this.storeTokens({ token, refreshToken });
-    // processSignInData
+      this.processSignInData(data);
 
+      return { success: true };
+    } catch (err) {
+      return {
+        error: true,
+        status: R.pathOr(null, ['response', 'status'], err),
+        dataKey: R.pathOr(null, ['response', 'data', 'data', 'key'], err),
+        msgKey: R.pathOr(null, ['response', 'data', 'msgKey'], err),
+      };
+    }
   };
 
   signOut = () => {
